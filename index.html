@@ -3,552 +3,672 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Forecast Pro – Utbildningsportal</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Forecast Pro – Utbildning</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --blue:#1B4FD8;--blue-mid:#2563EB;--blue-light:#EFF6FF;
-  --navy:#0F2444;--green:#059669;--amber:#D97706;
-  --bg:#F7F8FA;--white:#fff;--text:#111827;--text2:#374151;
-  --muted:#6B7280;--border:#E5E7EB;--border2:#D1D5DB;
-  --sw:264px;--hh:52px;--r:7px;
-  --sh:0 1px 3px rgba(0,0,0,.08);--shm:0 4px 16px rgba(0,0,0,.10);
+
+:root {
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-2: #F5F5F5;
+  --border: #E8E8E8;
+  --border-2: #D4D4D4;
+  --text: #1A1A1A;
+  --text-2: #525252;
+  --text-3: #8A8A8A;
+  --accent: #0055FF;
+  --accent-light: #EBF2FF;
+  --accent-dark: #0040CC;
+  --green: #00A86B;
+  --green-bg: #EDFCF5;
+  --amber: #D4860A;
+  --amber-bg: #FFFBEB;
+  --red: #DC2626;
+  --red-bg: #FEF2F2;
+  --purple: #7C3AED;
+  --purple-bg: #F5F0FF;
+  --teal: #0D9488;
+  --teal-bg: #F0FDFA;
+  --navy: #0A1628;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.04);
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+  --sidebar-w: 272px;
+  --header-h: 56px;
+  --font: 'Outfit', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
 }
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
-.hdr{position:fixed;top:0;left:0;right:0;height:var(--hh);background:var(--navy);display:flex;align-items:center;padding:0 18px;gap:12px;z-index:200}
-.hdr-logo{color:#fff;font-size:15px;font-weight:700;letter-spacing:-.2px}
-.hdr-sep{color:rgba(255,255,255,.2);font-size:18px;font-weight:300}
-.hdr-sub{color:rgba(255,255,255,.4);font-size:12px}
-.hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.hdr-tabs{display:flex;gap:3px}
-.htab{padding:5px 11px;border-radius:4px;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.5);cursor:pointer;border:none;background:none;font-family:inherit;transition:all .15s}
-.htab:hover{background:rgba(255,255,255,.08);color:#fff}
-.htab.active{background:rgba(255,255,255,.13);color:#fff}
-.prog-wrap{display:flex;align-items:center;gap:8px}
-.prog-txt{color:rgba(255,255,255,.45);font-size:11px}
-.prog-bar{width:90px;height:4px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden}
-.prog-fill{height:100%;background:#34d399;border-radius:2px;transition:width .4s}
-.app{display:flex;padding-top:var(--hh);min-height:100vh}
-.sidebar{position:fixed;top:var(--hh);left:0;bottom:0;width:var(--sw);background:var(--white);border-right:1px solid var(--border);overflow-y:auto;z-index:100;display:flex;flex-direction:column}
-.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-.sb-search{padding:10px 12px 6px;border-bottom:1px solid var(--border)}
-.sb-search input{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:12.5px;outline:none;font-family:inherit;background:var(--bg)}
-.sb-search input:focus{border-color:var(--blue-mid)}
-.sb-nav{flex:1;padding:6px 0}
-.ncat{margin-bottom:2px}
-.ncat-hdr{display:flex;align-items:center;gap:7px;padding:7px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);cursor:pointer;user-select:none;transition:background .12s}
-.ncat-hdr:hover{background:var(--bg)}
-.ncat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.ncat-lbl{flex:1}
-.nchev{font-size:9px;transition:transform .2s}
-.ncat-hdr.open .nchev{transform:rotate(180deg)}
-.ncat-items{list-style:none}
-.ncat-items.collapsed{display:none}
-.nlink{display:flex;align-items:center;padding:6px 12px 6px 26px;font-size:13px;color:var(--text2);cursor:pointer;transition:background .1s;border-right:2px solid transparent;gap:5px}
-.nlink:hover{background:var(--blue-light);color:var(--blue-mid)}
-.nlink.active{background:var(--blue-light);color:var(--blue);font-weight:600;border-right-color:var(--blue)}
-.nlink.done{color:var(--muted)}
-.nlink .chk{margin-left:auto;color:#34d399;font-size:10px;flex-shrink:0}
-.sb-foot{padding:10px 12px;border-top:1px solid var(--border)}
-.sb-foot-btns{display:flex;gap:6px}
-.sbfb{flex:1;padding:6px 4px;text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .15s}
-.sbfb:hover,.sbfb.av{background:var(--blue-light);color:var(--blue);border-color:var(--blue)}
-.main{margin-left:var(--sw);flex:1;min-height:calc(100vh - var(--hh))}
-.view{display:none;padding:24px 32px 80px;max-width:900px}
+
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+
+/* ═══════════════════ HEADER ═══════════════════ */
+.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--navy);display:flex;align-items:center;padding:0 20px;z-index:300;backdrop-filter:blur(20px)}
+.header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
+.logo-area{display:flex;align-items:center;gap:10px}
+.logo-mark{width:28px;height:28px;background:var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:13px;letter-spacing:-.5px}
+.logo-text{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px}
+.logo-divider{width:1px;height:20px;background:rgba(255,255,255,.12);margin:0 6px}
+.logo-subtitle{font-size:12px;color:rgba(255,255,255,.35);font-weight:400}
+.header-nav{display:flex;gap:2px;margin-left:40px}
+.header-nav button{padding:6px 14px;border-radius:6px;font-size:13px;font-weight:500;color:rgba(255,255,255,.45);cursor:pointer;border:none;background:none;font-family:var(--font);transition:all .15s;letter-spacing:-.1px}
+.header-nav button:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.8)}
+.header-nav button.active{background:rgba(255,255,255,.1);color:#fff}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+.progress-pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border-radius:20px;padding:5px 12px 5px 10px}
+.progress-ring{width:22px;height:22px;position:relative}
+.progress-ring svg{transform:rotate(-90deg)}
+.progress-ring circle{fill:none;stroke-width:2.5}
+.progress-ring .bg{stroke:rgba(255,255,255,.1)}
+.progress-ring .fg{stroke:#34d399;stroke-linecap:round;transition:stroke-dashoffset .5s ease}
+.progress-text{font-size:11.5px;color:rgba(255,255,255,.5);font-weight:500;font-family:var(--mono)}
+
+/* ═══════════════════ SIDEBAR ═══════════════════ */
+.sidebar{position:fixed;top:var(--header-h);left:0;bottom:0;width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;z-index:200;display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:2px}
+.sb-search{padding:12px 14px 8px}
+.sb-search input{width:100%;padding:8px 12px 8px 32px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:12.5px;outline:none;font-family:var(--font);background:var(--surface-2);transition:all .15s}
+.sb-search input:focus{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 3px rgba(0,85,255,.08)}
+.sb-search-icon{position:absolute;left:24px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:13px;pointer-events:none}
+.sb-search{position:relative}
+.sb-nav{flex:1;padding:4px 8px}
+.cat-section{margin-bottom:4px}
+.cat-header{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:var(--radius-sm);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);cursor:pointer;user-select:none;transition:background .12s}
+.cat-header:hover{background:var(--surface-2)}
+.cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.cat-label{flex:1}
+.cat-count{font-size:9px;font-weight:600;background:var(--surface-2);color:var(--text-3);padding:1px 5px;border-radius:10px;font-family:var(--mono)}
+.cat-chevron{font-size:8px;transition:transform .2s;color:var(--text-3)}
+.cat-header.open .cat-chevron{transform:rotate(180deg)}
+.cat-items{list-style:none;overflow:hidden}
+.cat-items.collapsed{display:none}
+.nav-link{display:flex;align-items:center;padding:7px 10px 7px 24px;font-size:13px;color:var(--text-2);cursor:pointer;transition:all .1s;border-radius:var(--radius-sm);margin:1px 0;gap:6px;border-left:2px solid transparent}
+.nav-link:hover{background:var(--accent-light);color:var(--accent)}
+.nav-link.active{background:var(--accent-light);color:var(--accent);font-weight:600;border-left-color:var(--accent)}
+.nav-link.done .nav-text{opacity:.55}
+.nav-link .check{margin-left:auto;color:var(--green);font-size:11px;flex-shrink:0;opacity:0;transition:opacity .2s}
+.nav-link.done .check{opacity:1}
+
+/* ═══════════════════ MAIN ═══════════════════ */
+.main{margin-left:var(--sidebar-w);padding-top:var(--header-h);min-height:100vh}
+.view{display:none;padding:28px 36px 80px;max-width:940px;margin:0 auto}
 .view.active{display:block}
-.home-hero{background:var(--navy);border-radius:10px;padding:26px 28px;margin-bottom:22px;position:relative;overflow:hidden}
-.home-hero::after{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;background:radial-gradient(circle,rgba(37,99,235,.2) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.hh-title{font-size:21px;font-weight:700;color:#fff;margin-bottom:5px}
-.hh-sub{color:rgba(255,255,255,.5);font-size:13px;max-width:500px}
-.hh-stats{display:flex;gap:14px;margin-top:16px}
-.hh-stat{background:rgba(255,255,255,.07);border-radius:6px;padding:9px 14px}
-.hh-val{font-size:19px;font-weight:700;color:#fff}
-.hh-lbl{font-size:10.5px;color:rgba(255,255,255,.4)}
-.sec-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:11px}
-.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:10px;margin-bottom:26px}
-.hcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:15px;cursor:pointer;transition:box-shadow .15s,border-color .15s}
-.hcard:hover{box-shadow:var(--shm);border-color:var(--border2)}
-.hcard-bar{height:3px;border-radius:2px;margin-bottom:11px}
-.hcard-cat{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
-.hcard-title{font-size:13px;font-weight:600;line-height:1.4;margin-bottom:6px}
-.hcard-meta{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px}
-.done-pill{background:#f0fdf4;color:#166534;border-radius:10px;padding:1px 6px;font-size:9.5px;font-weight:700}
-.rdr-bc{font-size:11.5px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:5px}
-.rdr-bc a{color:var(--blue);cursor:pointer;text-decoration:none}
-.rdr-bc a:hover{text-decoration:underline}
-.rdr-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px}
-.rdr-back{flex-shrink:0;background:none;border:1px solid var(--border);border-radius:var(--r);padding:6px 12px;font-size:12px;cursor:pointer;color:var(--muted);font-family:inherit;transition:all .15s}
-.rdr-back:hover{background:var(--bg);color:var(--text)}
-.rdr-meta{flex:1}
-.rdr-badge{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:2px 7px;border-radius:3px;margin-bottom:5px;color:#fff}
-.rdr-title{font-size:20px;font-weight:700;line-height:1.3}
-.pdf-viewer{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
-.pdf-toolbar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--bg)}
-.pdf-toolbar-left{display:flex;align-items:center;gap:8px}
-.pdf-source{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.pdf-embed-wrap{width:100%;height:75vh;position:relative}
-.pdf-embed-wrap iframe{width:100%;height:100%;border:none;display:block}
-.pdf-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--border)}
-.pdf-dots{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
-.pdot{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);cursor:pointer;transition:all .15s;flex-shrink:0}
-.pdot:hover:not(.pa){border-color:var(--blue-mid);color:var(--blue-mid)}
-.pdot.pa{border-color:var(--blue);background:var(--blue);color:#fff}
-.pdot.pd{border-color:#34d399;background:#34d399;color:#fff}
-.pdf-ctr{font-size:12px;color:var(--muted)}
-.pdf-nav-btns{display:flex;gap:8px}
-.btn{padding:7px 16px;border-radius:var(--r);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all .15s}
-.btn-ghost{background:var(--bg);color:var(--text2);border:1px solid var(--border)}
-.btn-ghost:hover{background:var(--border)}
-.btn-primary{background:var(--blue);color:#fff}
-.btn-primary:hover{background:#1d4ed8}
-.btn-success{background:var(--green);color:#fff}
-.btn-success:hover{background:#047857}
-.btn:disabled{opacity:.3;cursor:default;pointer-events:none}
-.done-bar{background:#f0fdf4;border:1px solid #a7f3d0;border-radius:var(--r);padding:13px 16px;display:flex;align-items:center;gap:10px;margin-top:13px}
-.done-bar-ico{font-size:18px}
-.done-bar-txt{font-size:13px;color:#065f46}
-.done-bar-txt strong{display:block}
-.quiz-hero,.faq-hero,.crit-hero{border-radius:10px;padding:22px 26px;margin-bottom:20px;color:#fff}
-.quiz-hero{background:linear-gradient(135deg,var(--navy) 0%,#1e3a8a 100%)}
-.faq-hero{background:var(--navy)}
-.crit-hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)}
-.hero-h{font-size:19px;font-weight:700;margin-bottom:3px}
-.hero-p{color:rgba(255,255,255,.55);font-size:12.5px}
-.qfilters,.faq-cats{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap}
-.qfbtn,.fcbtn{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer;transition:all .15s;font-family:inherit}
-.qfbtn:hover,.qfbtn.active,.fcbtn:hover,.fcbtn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-.qscore{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:14px}
-.qscore-num{font-size:26px;font-weight:700;color:var(--blue)}
-.qscore-lbl{font-size:12px;color:var(--muted)}
-.qcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;margin-bottom:12px}
-.qcard.qc{border-color:#a7f3d0;background:#f0fdf4}
-.qcard.qw{border-color:#fca5a5;background:#fef2f2}
-.qnum{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:7px}
-.qtxt{font-size:14.5px;font-weight:600;margin-bottom:16px;line-height:1.5}
-.qopts{display:flex;flex-direction:column;gap:7px}
-.qopt{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all .15s;font-size:13px;line-height:1.5;background:var(--bg)}
-.qopt:hover:not(.qdis){border-color:var(--blue-mid);background:var(--blue-light)}
-.qopt.qoc{border-color:var(--green);background:#f0fdf4}
-.qopt.qow{border-color:#dc2626;background:#fef2f2}
-.qopt.qdis{cursor:default}
-.qltr{width:19px;height:19px;border-radius:4px;background:var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
-.qfb{margin-top:12px;padding:11px 13px;border-radius:var(--r);font-size:12.5px}
-.qfb.qfbc{background:#f0fdf4;color:#065f46;border:1px solid #a7f3d0}
-.qfb.qfbw{background:#fef2f2;color:#991b1b;border:1px solid #fca5a5}
-.faq-sw{margin-bottom:16px;position:relative}
-.faq-sw input{width:100%;padding:9px 13px 9px 34px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;outline:none;font-family:inherit;background:var(--white)}
-.faq-sw input:focus{border-color:var(--blue-mid);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.faq-si{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:12px}
-.fitem{border:1px solid var(--border);border-radius:var(--r);background:var(--white);margin-bottom:7px;overflow:hidden}
-.fitem.hidden{display:none}
-.fq{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;font-size:13.5px;font-weight:600;transition:background .12s;gap:10px;line-height:1.4}
-.fq:hover{background:var(--bg)}
-.fqi{flex-shrink:0;font-size:10px;color:var(--muted);transition:transform .2s}
-.fitem.open .fqi{transform:rotate(180deg)}
-.fa{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .25s ease,padding .2s;font-size:13px;color:var(--text2);line-height:1.7}
-.fitem.open .fa{max-height:600px;padding:0 16px 15px}
-.ftag{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;border-radius:3px;background:var(--bg);color:var(--muted);margin-right:6px;margin-bottom:6px}
-.fempty{text-align:center;padding:40px;color:var(--muted);font-size:13.5px}
-.csec{margin-bottom:26px}
-.csec-ttl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border)}
-.citem{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:15px 16px;margin-bottom:7px;display:flex;gap:12px}
-.csev{flex-shrink:0;width:44px;height:44px;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;gap:2px}
-.ch{background:#fef2f2;color:#dc2626}.cm{background:#fffbeb;color:var(--amber)}.cl{background:#f0fdf4;color:var(--green)}
-.cttl{font-size:13px;font-weight:700;margin-bottom:3px}
-.ctxt{font-size:12.5px;color:var(--text2);line-height:1.6}
-.cfix{font-size:11.5px;color:var(--blue);margin-top:5px;font-weight:500}
+
+/* ═══════════════════ HOME ═══════════════════ */
+.hero{background:var(--navy);border-radius:14px;padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(0,85,255,.15) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-40%;left:20%;width:300px;height:300px;background:radial-gradient(circle,rgba(0,168,107,.1) 0%,transparent 65%);pointer-events:none}
+.hero-title{font-size:24px;font-weight:800;color:#fff;letter-spacing:-.5px;margin-bottom:4px;position:relative}
+.hero-sub{color:rgba(255,255,255,.4);font-size:13.5px;max-width:480px;position:relative}
+.hero-stats{display:flex;gap:12px;margin-top:20px;position:relative}
+.stat-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 18px;min-width:100px}
+.stat-val{font-size:22px;font-weight:800;color:#fff;font-family:var(--mono);letter-spacing:-.5px}
+.stat-label{font-size:10.5px;color:rgba(255,255,255,.3);font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:14px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:32px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
+.card:hover{box-shadow:var(--shadow-md);border-color:var(--border-2);transform:translateY(-1px)}
+.card-stripe{height:3px;border-radius:2px;margin-bottom:14px}
+.card-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.card-title{font-size:13.5px;font-weight:600;line-height:1.35;margin-bottom:8px;letter-spacing:-.1px}
+.card-meta{font-size:11px;color:var(--text-3);display:flex;align-items:center;gap:6px}
+.card-done{background:var(--green-bg);color:var(--green);border-radius:10px;padding:1px 7px;font-size:9.5px;font-weight:700}
+
+/* ═══════════════════ READER ═══════════════════ */
+.breadcrumb{font-size:12px;color:var(--text-3);margin-bottom:16px;display:flex;align-items:center;gap:5px}
+.breadcrumb a{color:var(--accent);cursor:pointer;text-decoration:none;font-weight:500}
+.breadcrumb a:hover{text-decoration:underline}
+.reader-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.back-btn{flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;font-size:12px;cursor:pointer;color:var(--text-2);font-family:var(--font);font-weight:500;transition:all .15s}
+.back-btn:hover{background:var(--surface-2);color:var(--text)}
+.reader-info{flex:1}
+.reader-badge{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 8px;border-radius:4px;margin-bottom:6px;color:#fff}
+.reader-title{font-size:22px;font-weight:700;line-height:1.3;letter-spacing:-.3px}
+
+.pdf-viewer{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.pdf-toolbar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--surface-2)}
+.pdf-name{font-size:11px;font-weight:600;color:var(--text-3);font-family:var(--mono);letter-spacing:-.2px}
+.pdf-frame-wrap{width:100%;height:72vh;position:relative;background:#f0f0f0}
+.pdf-frame-wrap iframe{width:100%;height:100%;border:none;display:block}
+.pdf-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-top:1px solid var(--border);gap:12px}
+.pdf-dots{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--text-3);cursor:pointer;transition:all .15s;flex-shrink:0;font-family:var(--mono)}
+.dot:hover:not(.dot-active){border-color:var(--accent);color:var(--accent)}
+.dot-active{border-color:var(--accent);background:var(--accent);color:#fff}
+.dot-done{border-color:var(--green);background:var(--green);color:#fff}
+.pdf-counter{font-size:12px;color:var(--text-3);font-family:var(--mono);white-space:nowrap}
+.nav-btns{display:flex;gap:8px}
+.btn{padding:8px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:var(--font);transition:all .15s;letter-spacing:-.1px}
+.btn-secondary{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.btn-secondary:hover{background:var(--border);color:var(--text)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#008f5b}
+.btn:disabled{opacity:.25;cursor:default;pointer-events:none}
+
+.done-banner{background:var(--green-bg);border:1px solid #a7f3d0;border-radius:var(--radius);padding:16px 20px;display:flex;align-items:center;gap:12px;margin-top:16px}
+.done-banner-icon{font-size:20px}
+.done-banner-text{font-size:13.5px;color:#065f46}
+.done-banner-text strong{display:block;font-weight:700}
+
+/* ═══════════════════ QUIZ ═══════════════════ */
+.quiz-hero{background:linear-gradient(135deg,var(--navy) 0%,#162240 100%);border-radius:14px;padding:28px 32px;margin-bottom:22px;position:relative;overflow:hidden}
+.quiz-hero::before{content:'';position:absolute;top:-30%;right:5%;width:200px;height:200px;background:radial-gradient(circle,rgba(124,58,237,.2) 0%,transparent 65%);pointer-events:none}
+.hero-h{font-size:20px;font-weight:800;color:#fff;letter-spacing:-.3px;position:relative}
+.hero-p{color:rgba(255,255,255,.4);font-size:13px;position:relative}
+.filters{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--text-3);cursor:pointer;transition:all .15s;font-family:var(--font)}
+.filter-btn:hover,.filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.score-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px}
+.score-num{font-size:28px;font-weight:800;color:var(--accent);font-family:var(--mono);letter-spacing:-1px}
+.score-label{font-size:12px;color:var(--text-3)}
+
+.quiz-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:12px;transition:all .2s}
+.quiz-card.correct{border-color:#a7f3d0;background:var(--green-bg)}
+.quiz-card.wrong{border-color:#fca5a5;background:var(--red-bg)}
+.quiz-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);margin-bottom:8px;font-family:var(--mono)}
+.quiz-q{font-size:15px;font-weight:600;margin-bottom:18px;line-height:1.5;letter-spacing:-.1px}
+.quiz-opts{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;font-size:13px;line-height:1.5;background:var(--surface-2)}
+.quiz-opt:hover:not(.disabled){border-color:var(--accent);background:var(--accent-light)}
+.quiz-opt.opt-correct{border-color:var(--green);background:var(--green-bg)}
+.quiz-opt.opt-wrong{border-color:var(--red);background:var(--red-bg)}
+.quiz-opt.disabled{cursor:default}
+.opt-letter{width:20px;height:20px;border-radius:5px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;font-family:var(--mono)}
+.quiz-feedback{margin-top:14px;padding:12px 14px;border-radius:var(--radius-sm);font-size:12.5px;line-height:1.6}
+.fb-correct{background:var(--green-bg);color:#065f46;border:1px solid #a7f3d0}
+.fb-wrong{background:var(--red-bg);color:#991b1b;border:1px solid #fca5a5}
+
+/* ═══════════════════ FAQ ═══════════════════ */
+.faq-hero{background:var(--navy);border-radius:14px;padding:28px 32px;margin-bottom:22px}
+.faq-search{margin-bottom:18px;position:relative}
+.faq-search input{width:100%;padding:10px 14px 10px 36px;border:1px solid var(--border);border-radius:var(--radius);font-size:13.5px;outline:none;font-family:var(--font);background:var(--surface);transition:all .15s}
+.faq-search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,85,255,.08)}
+.faq-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:14px}
+.faq-item{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);margin-bottom:6px;overflow:hidden;transition:all .15s}
+.faq-item:hover{border-color:var(--border-2)}
+.faq-item.hidden{display:none}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;font-size:14px;font-weight:600;transition:background .12s;gap:12px;line-height:1.4;letter-spacing:-.1px}
+.faq-q:hover{background:var(--surface-2)}
+.faq-chevron{flex-shrink:0;font-size:10px;color:var(--text-3);transition:transform .2s}
+.faq-item.open .faq-chevron{transform:rotate(180deg)}
+.faq-a{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .2s;font-size:13.5px;color:var(--text-2);line-height:1.7}
+.faq-item.open .faq-a{max-height:500px;padding:0 18px 16px}
+.faq-tag{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:2px 7px;border-radius:4px;background:var(--surface-2);color:var(--text-3);margin-right:6px;margin-bottom:8px}
+.faq-empty{text-align:center;padding:48px;color:var(--text-3);font-size:14px}
+
+/* ═══════════════════ REVIEW ═══════════════════ */
+.review-hero{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border-radius:14px;padding:28px 32px;margin-bottom:22px}
+.review-section{margin-bottom:28px}
+.review-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.review-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:8px;display:flex;gap:14px}
+.severity{flex-shrink:0;width:44px;height:44px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;font-weight:800;text-transform:uppercase;gap:1px}
+.sev-high{background:var(--red-bg);color:var(--red)}
+.sev-med{background:var(--amber-bg);color:var(--amber)}
+.sev-low{background:var(--green-bg);color:var(--green)}
+.review-title{font-size:13.5px;font-weight:700;margin-bottom:3px;letter-spacing:-.1px}
+.review-text{font-size:12.5px;color:var(--text-2);line-height:1.6}
+.review-fix{font-size:11.5px;color:var(--accent);margin-top:6px;font-weight:500}
+
+/* ═══════════════════ ANIMATIONS ═══════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.view.active .hero,.view.active .quiz-hero,.view.active .faq-hero,.view.active .review-hero{animation:fadeUp .35s ease}
+.card{animation:fadeUp .3s ease backwards}
+.cards-grid .card:nth-child(1){animation-delay:.02s}
+.cards-grid .card:nth-child(2){animation-delay:.04s}
+.cards-grid .card:nth-child(3){animation-delay:.06s}
+.cards-grid .card:nth-child(4){animation-delay:.08s}
+.cards-grid .card:nth-child(5){animation-delay:.1s}
+.cards-grid .card:nth-child(6){animation-delay:.12s}
+
+/* ═══════════════════ RESPONSIVE ═══════════════════ */
+@media(max-width:800px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+  .view{padding:16px 18px 60px}
+  .hero,.quiz-hero,.faq-hero,.review-hero{padding:22px}
+  .hero-stats{flex-wrap:wrap}
+  .cards-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
-<header class="hdr">
-  <div class="hdr-logo">Forecast Pro</div>
-  <div class="hdr-sep">|</div>
-  <div class="hdr-sub">Utbildningsportal</div>
-  <div class="hdr-right">
-    <div class="hdr-tabs">
-      <button class="htab active" data-v="home" onclick="sv('home',this)">Start</button>
-      <button class="htab" data-v="quiz" onclick="sv('quiz',this)">Quiz</button>
-      <button class="htab" data-v="faq" onclick="sv('faq',this)">FAQ</button>
-      <button class="htab" data-v="crit" onclick="sv('crit',this)">Granskning</button>
-    </div>
-    <div class="prog-wrap">
-      <span class="prog-txt" id="ptxt">0/18</span>
-      <div class="prog-bar"><div class="prog-fill" id="pfill"></div></div>
+<header class="header">
+  <div class="logo-area">
+    <div class="logo-mark">FP</div>
+    <div class="logo-text">Forecast Pro</div>
+    <div class="logo-divider"></div>
+    <div class="logo-subtitle">Utbildning</div>
+  </div>
+  <nav class="header-nav">
+    <button class="active" onclick="switchView('home',this)">Start</button>
+    <button onclick="switchView('quiz',this)">Quiz</button>
+    <button onclick="switchView('faq',this)">FAQ</button>
+    <button onclick="switchView('review',this)">Granskning</button>
+  </nav>
+  <div class="header-right">
+    <div class="progress-pill">
+      <div class="progress-ring">
+        <svg width="22" height="22"><circle class="bg" cx="11" cy="11" r="9"/><circle class="fg" id="prog-circle" cx="11" cy="11" r="9" stroke-dasharray="56.55" stroke-dashoffset="56.55"/></svg>
+      </div>
+      <span class="progress-text" id="prog-text">0 / 18</span>
     </div>
   </div>
 </header>
 
-<div class="app">
+<div style="display:flex;padding-top:var(--header-h);min-height:100vh">
 <nav class="sidebar">
-  <div class="sb-search"><input type="text" id="sbsrch" placeholder="Sök avsnitt…" oninput="sbFilter(this.value)"/></div>
-  <div class="sb-nav" id="sbnav"></div>
-  <div class="sb-foot">
-    <div class="sb-foot-btns">
-      <div class="sbfb av" id="sbf-c" onclick="sv('home')">📚 Innehåll</div>
-      <div class="sbfb" id="sbf-q" onclick="sv('quiz')">🎯 Quiz</div>
-      <div class="sbfb" id="sbf-f" onclick="sv('faq')">❓ FAQ</div>
-    </div>
+  <div class="sb-search">
+    <span class="sb-search-icon">🔍</span>
+    <input type="text" id="sb-search" placeholder="Sök avsnitt eller mallnr (t.ex. 1.01, 3.10)…" oninput="filterSidebar(this.value)"/>
   </div>
+  <div class="sb-nav" id="sb-nav"></div>
 </nav>
 
 <main class="main">
+  <!-- HOME -->
   <div class="view active" id="view-home">
-    <div class="home-hero">
-      <div class="hh-title">Forecast Pro Utbildning</div>
-      <div class="hh-sub">Gå igenom varje avsnitt sida för sida. Klicka på ett avsnitt för att börja.</div>
-      <div class="hh-stats">
-        <div class="hh-stat"><div class="hh-val" id="st-done">0</div><div class="hh-lbl">Avsnitt klara</div></div>
-        <div class="hh-stat"><div class="hh-val">18</div><div class="hh-lbl">Totalt</div></div>
-        <div class="hh-stat"><div class="hh-val" id="st-quiz">—</div><div class="hh-lbl">Quiz</div></div>
+    <div class="hero">
+      <div class="hero-title">Välkommen till Forecast Pro</div>
+      <div class="hero-sub">Gå igenom varje avsnitt i din egen takt. Klicka på ett avsnitt nedan för att börja.</div>
+      <div class="hero-stats">
+        <div class="stat-card"><div class="stat-val" id="stat-done">0</div><div class="stat-label">Avklarat</div></div>
+        <div class="stat-card"><div class="stat-val">18</div><div class="stat-label">Avsnitt</div></div>
+        <div class="stat-card"><div class="stat-val" id="stat-quiz">—</div><div class="stat-label">Quizpoäng</div></div>
       </div>
     </div>
-    <div class="sec-lbl">Alla avsnitt</div>
-    <div class="hgrid" id="hgrid"></div>
+    <div id="home-grid"></div>
   </div>
 
+  <!-- READER -->
   <div class="view" id="view-reader">
-    <div class="rdr-bc"><a onclick="sv('home')">Start</a><span>›</span><span id="bc-cat"></span><span>›</span><span id="bc-ttl"></span></div>
-    <div class="rdr-top">
-      <button class="rdr-back" onclick="sv('home')">← Tillbaka</button>
-      <div class="rdr-meta">
-        <div class="rdr-badge" id="rdr-badge"></div>
-        <div class="rdr-title" id="rdr-title"></div>
+    <div class="breadcrumb"><a onclick="switchView('home')">← Tillbaka till start</a><span>›</span><span id="bc-cat"></span><span>›</span><span id="bc-title"></span></div>
+    
+    <!-- LESSON NAVIGATION: hoppa mellan avsnitt -->
+    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 18px;margin-bottom:16px;gap:12px">
+      <button class="btn btn-ghost" id="lesson-prev" onclick="prevLesson()" style="font-size:12px;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">← Föregående avsnitt</button>
+      <div style="text-align:center;flex:1;min-width:0">
+        <div style="font-size:14px;font-weight:600" id="lesson-name"></div>
+        <div style="font-size:11px;color:var(--text-3);font-family:var(--mono);margin-top:2px" id="lesson-pos"></div>
+      </div>
+      <button class="btn btn-ghost" id="lesson-next" onclick="nextLesson()" style="font-size:12px;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Nästa avsnitt →</button>
+    </div>
+
+    <div class="reader-header">
+      <button class="back-btn" onclick="switchView('home')">← Tillbaka</button>
+      <div class="reader-info">
+        <div class="reader-badge" id="rdr-badge"></div>
+        <div class="reader-title" id="rdr-title"></div>
       </div>
     </div>
     <div class="pdf-viewer">
-      <div class="pdf-toolbar">
-        <div class="pdf-toolbar-left">
-          <span class="pdf-source" id="pdf-source"></span>
-        </div>
-      </div>
-      <div class="pdf-embed-wrap">
-        <iframe id="pdf-frame" src="" allowfullscreen></iframe>
-      </div>
+      <div class="pdf-toolbar"><span class="pdf-name" id="pdf-name"></span></div>
+      <div class="pdf-frame-wrap"><iframe id="pdf-frame" src=""></iframe></div>
       <div class="pdf-nav">
         <div class="pdf-dots" id="pdf-dots"></div>
-        <span class="pdf-ctr" id="pdf-ctr"></span>
-        <div class="pdf-nav-btns">
-          <button class="btn btn-ghost" id="btn-prev" onclick="prevPdf()">← Föregående</button>
+        <span class="pdf-counter" id="pdf-counter"></span>
+        <div class="nav-btns">
+          <button class="btn btn-secondary" id="btn-prev" onclick="prevPdf()">← Föregående</button>
           <button class="btn btn-primary" id="btn-next" onclick="nextPdf()">Nästa →</button>
         </div>
       </div>
     </div>
-    <div class="done-bar" id="done-bar" style="display:none">
-      <div class="done-bar-ico">✅</div>
-      <div class="done-bar-txt"><strong>Avsnittet klart!</strong><span id="next-link"></span></div>
+    <div class="done-banner" id="done-banner" style="display:none">
+      <div class="done-banner-icon">✅</div>
+      <div class="done-banner-text"><strong>Avsnittet klart!</strong><span id="next-hint"></span></div>
     </div>
   </div>
 
+  <!-- QUIZ -->
   <div class="view" id="view-quiz">
-    <div class="quiz-hero"><div class="hero-h">🎯 Quiz</div><div class="hero-p">Testa dina kunskaper. Filtrera per kategori eller kör alla.</div></div>
-    <div class="qscore" id="qscore" style="display:none">
-      <div><div class="qscore-num" id="qscore-num"></div><div class="qscore-lbl">rätt svar</div></div>
-      <button class="btn btn-ghost" style="margin-left:auto" onclick="resetQuiz()">Starta om</button>
+    <div class="quiz-hero"><div class="hero-h">Quiz</div><div class="hero-p">Testa dina kunskaper. Filtrera per kategori eller kör alla.</div></div>
+    <div class="score-bar" id="score-bar" style="display:none">
+      <div><div class="score-num" id="score-num"></div><div class="score-label">rätt svar</div></div>
+      <button class="btn btn-secondary" style="margin-left:auto" onclick="resetQuiz()">Börja om</button>
     </div>
-    <div class="qfilters" id="qfilters"></div>
-    <div id="qlist"></div>
+    <div class="filters" id="quiz-filters"></div>
+    <div id="quiz-list"></div>
   </div>
 
+  <!-- FAQ -->
   <div class="view" id="view-faq">
-    <div class="faq-hero"><div class="hero-h">❓ Vanliga frågor</div><div class="hero-p">Svar på de vanligaste frågorna om Forecast Pro.</div></div>
-    <div class="faq-sw"><span class="faq-si">🔍</span><input type="text" id="faqsrch" placeholder="Sök i FAQ…" oninput="filterFaq(this.value)"/></div>
-    <div class="faq-cats" id="faqcats"></div>
-    <div id="faqlist"></div>
-    <div class="fempty" id="fempty" style="display:none">Inga träffar.</div>
+    <div class="faq-hero"><div class="hero-h">Vanliga frågor</div><div class="hero-p">Sök eller bläddra bland vanliga frågor om Forecast Pro.</div></div>
+    <div class="faq-search"><span class="faq-search-icon">🔍</span><input type="text" id="faq-search" placeholder="Sök bland frågor…" oninput="filterFaq()"/></div>
+    <div class="filters" id="faq-cats"></div>
+    <div id="faq-list"></div>
+    <div class="faq-empty" id="faq-empty" style="display:none">Inga frågor matchar din sökning.</div>
   </div>
 
-  <div class="view" id="view-crit">
-    <div class="crit-hero"><div class="hero-h">🔍 Granskning</div><div class="hero-p">Ärlig kritik av innehåll och design.</div></div>
-    <div id="critlist"></div>
+  <!-- REVIEW -->
+  <div class="view" id="view-review">
+    <div class="review-hero"><div class="hero-h">Granskning</div><div class="hero-p">Ärlig kritik av innehåll och design.</div></div>
+    <div id="review-list"></div>
   </div>
 </main>
 </div>
 
 <script>
-const LESSONS = {
-  "b-version":  {cat:"budget",   title:"Register - Versioner & Kontomallar",       pdfs:["pdfs/1.01 Register - Versioner.pdf","pdfs/1.02 Register - Kontomallar.pdf"]},
-  "b-bolag":    {cat:"budget",   title:"Bolag, Kostnadsstallen & Valutor",          pdfs:["pdfs/1.03 Register - Valutakoder.pdf","pdfs/1.04 Register - Bolag.pdf","pdfs/1.05 Register - Kostnadsstallegrupper.pdf","pdfs/1.06 Register - Kostnadsstallen.pdf"]},
-  "b-konto":    {cat:"budget",   title:"Kontoplan, Kontogrupper & Kontoadmin",      pdfs:["pdfs/1.10 Register - Periodiseringsnycklar.pdf","pdfs/1.11 Register - Kontogrupper.pdf","pdfs/1.12 Register - Konton.pdf","pdfs/1.14 Register - Kontoadministration.pdf"]},
-  "b-helar":    {cat:"budget",   title:"Inmatning - Konto Helar",                   pdfs:["pdfs/2.01 Inmatning - Konto Helar.pdf"]},
-  "b-manad":    {cat:"budget",   title:"Inmatning - Konto Manad",                   pdfs:["pdfs/2.02 Inmatning - Konto Manad.pdf"]},
-  "p-param":    {cat:"personal", title:"Register - Personalparametrar",             pdfs:["pdfs/1.13 Register - Personalparametrar.pdf"]},
-  "p-personal": {cat:"personal", title:"Inmatning - Personal",                      pdfs:["pdfs/4.01 Inmatning - Personal.pdf"]},
-  "p-drivare":  {cat:"personal", title:"Drivare & Fordelning",                      pdfs:["pdfs/1.21 Register - Drivare - Fordelning Konto.pdf","pdfs/1.22 Register - Drivare - Fordelning Produkt.pdf","pdfs/2.21 Inmatning - Drivare - Fordelning Aktivitet.pdf","pdfs/2.22 Inmatning - Drivare - Fordelning Produkt.pdf"]},
-  "r-konto":    {cat:"reports",  title:"Rapport - Konto Helar & Manad",             pdfs:["pdfs/3.01 Rapport - Konto Helar.pdf","pdfs/3.02 Rapport - Konto Manad.pdf"]},
-  "r-resultat": {cat:"reports",  title:"Rapport - Resultatrakning",                 pdfs:["pdfs/3.10 Rapport - Resultatrakning.pdf"]},
-  "r-oversikt": {cat:"reports",  title:"Rapport - Oversikt Kostnadsstallen & Projekt", pdfs:["pdfs/3.03 Rapport - Oversikt Kostnadsstallen.pdf","pdfs/3.04 Rapport - Oversikt Projekt.pdf"]},
-  "r-personal": {cat:"reports",  title:"Rapport - Personal",                        pdfs:["pdfs/5.02 Rapport - Personal Detaljerad.pdf","pdfs/5.03 Rapport - Personal FTE.pdf"]},
-  "r-process":  {cat:"reports",  title:"Rapport - Processoversikt",                 pdfs:["pdfs/3.05 Rapport - Processoversikt.pdf"]},
-  "pr-utfall":  {cat:"prognos",  title:"Las in utfall",                             pdfs:["pdfs/1.15 Register - Las in utfall.pdf"]},
-  "pr-kopiera": {cat:"prognos",  title:"Administration - Kopiera Version",          pdfs:["pdfs/1.00.1 Administration - Kopiera Version.pdf"]},
-  "a-error":    {cat:"admin",    title:"Administration - Error Log",                pdfs:["pdfs/1.00.2 Administration - Error Log.pdf"]},
-  "a-radera":   {cat:"admin",    title:"Administration - Radera Version & Bolag",   pdfs:["pdfs/1.00.3 Administration - Radera Version.pdf","pdfs/1.00.4 Administration - Radera Bolag.pdf"]},
-  "a-drilldown":{cat:"admin",    title:"Drill Down",                                pdfs:["pdfs/Drill Down.pdf"]},
+
+/* ═══ FILENAME → SWEDISH DISPLAY NAME MAPPING ═══ */
+const PDF_NAMES={"1.00.1 Administration - Kopiera Version.pdf":"Administration – Kopiera version","1.00.2 Administration - Error Log.pdf":"Administration – Fellogg (Error Log)","1.00.3 Administration - Radera Version.pdf":"Administration – Radera version","1.00.4 Administration - Radera Bolag.pdf":"Administration – Radera bolag","1.01 Register - Versioner.pdf":"Register – Versioner","1.02 Register - Kontomallar.pdf":"Register – Kontomallar","1.03 Register - Valutakoder.pdf":"Register – Valutakoder","1.04 Register - Bolag.pdf":"Register – Bolag","1.05 Register - Kostnadsstallegrupper.pdf":"Register – Kostnadsställegrupper","1.06 Register - Kostnadsstallen.pdf":"Register – Kostnadsställen","1.10 Register - Periodiseringsnycklar.pdf":"Register – Periodiseringsnycklar","1.11 Register - Kontogrupper.pdf":"Register – Kontogrupper","1.12 Register - Konton.pdf":"Register – Konton","1.13 Register - Personalparametrar.pdf":"Register – Personalparametrar","1.14 Register - Kontoadministration.pdf":"Register – Kontoadministration","1.15 Register - Las in utfall.pdf":"Register – Läs in utfall","1.21 Register - Drivare - Fordelning Konto.pdf":"Register – Drivare – Fördelning konto","1.22 Register - Drivare - Fordelning Produkt.pdf":"Register – Drivare – Fördelning produkt","2.01 Inmatning - Konto Helar.pdf":"Inmatning – Konto helår","2.02 Inmatning - Konto Manad.pdf":"Inmatning – Konto månad","2.21 Inmatning - Drivare - Fordelning Aktivitet.pdf":"Inmatning – Drivare – Fördelning aktivitet","2.22 Inmatning - Drivare - Fordelning Produkt.pdf":"Inmatning – Drivare – Fördelning produkt","3.01 Rapport - Konto Helar.pdf":"Rapport – Konto helår","3.02 Rapport - Konto Manad.pdf":"Rapport – Konto månad","3.03 Rapport - Oversikt Kostnadsstallen.pdf":"Rapport – Översikt kostnadsställen","3.04 Rapport - Oversikt Projekt.pdf":"Rapport – Översikt projekt","3.05 Rapport - Processoversikt.pdf":"Rapport – Processöversikt","3.10 Rapport - Resultatrakning.pdf":"Rapport – Resultaträkning","4.01 Inmatning - Personal.pdf":"Inmatning – Personal","5.02 Rapport - Personal Detaljerad.pdf":"Rapport – Personal detaljerad","5.03 Rapport - Personal FTE.pdf":"Rapport – Personal FTE","Drill Down.pdf":"Drill Down – Fördjupningsfunktion"};
+function pdfName(p){return PDF_NAMES[p.split("/").pop()]||p.split("/").pop().replace(".pdf","");}
+
+// ═══════════════════ DATA ═══════════════════
+const LESSONS={
+  "b-version":{cat:"budget",ref:"1.01–1.02",title:"Register – Versioner & Kontomallar",desc:"Skapa och hantera budget-/prognosversioner och kontomallar.",pdfs:["pdfs/1.01 Register - Versioner.pdf","pdfs/1.02 Register - Kontomallar.pdf"]},
+  "b-bolag":{cat:"budget",ref:"1.03–1.06",title:"Bolag, Kostnadsställen & Valutor",desc:"Konfigurera bolag, kostnadsställegrupper, kostnadsställen och valutakoder.",pdfs:["pdfs/1.03 Register - Valutakoder.pdf","pdfs/1.04 Register - Bolag.pdf","pdfs/1.05 Register - Kostnadsstallegrupper.pdf","pdfs/1.06 Register - Kostnadsstallen.pdf"]},
+  "b-konto":{cat:"budget",ref:"1.10–1.14",title:"Kontoplan, Kontogrupper & Kontoadmin",desc:"Hantera periodiseringsnycklar, kontogrupper, konton och kontoadministration.",pdfs:["pdfs/1.10 Register - Periodiseringsnycklar.pdf","pdfs/1.11 Register - Kontogrupper.pdf","pdfs/1.12 Register - Konton.pdf","pdfs/1.14 Register - Kontoadministration.pdf"]},
+  "b-helar":{cat:"budget",ref:"2.01",title:"Inmatning – Konto helår",desc:"Mata in totalbelopp per budget-/prognospost.",pdfs:["pdfs/2.01 Inmatning - Konto Helar.pdf"]},
+  "b-manad":{cat:"budget",ref:"2.02",title:"Inmatning – Konto månad",desc:"Granska och justera periodfördelning per månad.",pdfs:["pdfs/2.02 Inmatning - Konto Manad.pdf"]},
+  "p-param":{cat:"personal",ref:"1.13",title:"Register – Personalparametrar",desc:"Konfigurera tjänstetyper, förmåner och sociala avgifter.",pdfs:["pdfs/1.13 Register - Personalparametrar.pdf"]},
+  "p-personal":{cat:"personal",ref:"4.01",title:"Inmatning – Personal",desc:"Mata in personal och beräkna personalkostnader automatiskt.",pdfs:["pdfs/4.01 Inmatning - Personal.pdf"]},
+  "p-drivare":{cat:"personal",ref:"1.21–2.22",title:"Drivare & Fördelning",desc:"Skapa drivargrupper och fördela kostnader per aktivitet/produkt.",pdfs:["pdfs/1.21 Register - Drivare - Fordelning Konto.pdf","pdfs/1.22 Register - Drivare - Fordelning Produkt.pdf","pdfs/2.21 Inmatning - Drivare - Fordelning Aktivitet.pdf","pdfs/2.22 Inmatning - Drivare - Fordelning Produkt.pdf"]},
+  "r-konto":{cat:"reports",ref:"3.01–3.02",title:"Rapport – Konto helår & månad",desc:"Översikt av lagd budget/prognos med Drill Down.",pdfs:["pdfs/3.01 Rapport - Konto Helar.pdf","pdfs/3.02 Rapport - Konto Manad.pdf"]},
+  "r-resultat":{cat:"reports",ref:"3.10",title:"Rapport – Resultaträkning",desc:"Jämför verkligt utfall mot lagd budget/prognos.",pdfs:["pdfs/3.10 Rapport - Resultatrakning.pdf"]},
+  "r-oversikt":{cat:"reports",ref:"3.03–3.04",title:"Rapport – Översikt kostnadsställen & projekt",desc:"Överblick per kostnadsställe och projekt.",pdfs:["pdfs/3.03 Rapport - Oversikt Kostnadsstallen.pdf","pdfs/3.04 Rapport - Oversikt Projekt.pdf"]},
+  "r-personal":{cat:"reports",ref:"5.02–5.03",title:"Rapport – Personal",desc:"Detaljerad personalrapport och FTE-översikt.",pdfs:["pdfs/5.02 Rapport - Personal Detaljerad.pdf","pdfs/5.03 Rapport - Personal FTE.pdf"]},
+  "r-process":{cat:"reports",ref:"3.05",title:"Rapport – Processöversikt",desc:"Se var du befinner dig i budgetprocessen.",pdfs:["pdfs/3.05 Rapport - Processoversikt.pdf"]},
+  "pr-utfall":{cat:"prognos",ref:"1.15",title:"Läs in utfall",desc:"Läs in utfall från affärssystemet till en prognosversion.",pdfs:["pdfs/1.15 Register - Las in utfall.pdf"]},
+  "pr-kopiera":{cat:"prognos",ref:"1.00.1",title:"Administration – Kopiera version",desc:"Kopiera data mellan versioner.",pdfs:["pdfs/1.00.1 Administration - Kopiera Version.pdf"]},
+  "a-error":{cat:"admin",ref:"1.00.2",title:"Administration – Fellogg",desc:"Granska eventuella fel under bearbetning.",pdfs:["pdfs/1.00.2 Administration - Error Log.pdf"]},
+  "a-radera":{cat:"admin",ref:"1.00.3–1.00.4",title:"Administration – Radera version & bolag",desc:"Radera versioner eller bolag. OBS: Permanent åtgärd.",pdfs:["pdfs/1.00.3 Administration - Radera Version.pdf","pdfs/1.00.4 Administration - Radera Bolag.pdf"]},
+  "a-drilldown":{cat:"admin",ref:"—",title:"Drill Down – Fördjupning",desc:"Borra ner till transaktionsnivå i rapporter.",pdfs:["pdfs/Drill Down.pdf"]},
 };
 
-const ALL_IDS = Object.keys(LESSONS);
-
-const CAT = {
-  budget:  {lbl:"Budget",            col:"#1B4FD8"},
-  personal:{lbl:"Personal & Drivare",col:"#7C3AED"},
-  reports: {lbl:"Rapporter",         col:"#059669"},
-  prognos: {lbl:"Prognos",           col:"#0D9488"},
-  admin:   {lbl:"Administration",    col:"#D97706"},
+const ALL_IDS=Object.keys(LESSONS);
+const CAT={
+  budget:{label:"Budget",color:"#0055FF",bg:"#EBF2FF"},
+  personal:{label:"Personal & Drivare",color:"#7C3AED",bg:"#F5F0FF"},
+  reports:{label:"Rapporter",color:"#00A86B",bg:"#EDFCF5"},
+  prognos:{label:"Prognos",color:"#0D9488",bg:"#F0FDFA"},
+  admin:{label:"Administration",color:"#D4860A",bg:"#FFFBEB"},
 };
 
-const QUIZ_DATA=[
-  {cat:"budget",q:"Vad betyder faltet 'Dolj version' (varde 1) i Register - Versioner?",opts:["Versionen raderas permanent","Versionen lases for registerhantering, inmatning och rapportering","Versionen doljs bara i rapportering","Versionen kan inte kopieras"],correct:1,exp:"1 = Last, 0 = Oppen. Versionen stangs helt for all hantering."},
-  {cat:"budget",q:"Hur manga jamforelseversioner kan anges i standardversionen?",opts:["En","Tva","Tre","Fyra"],correct:2,exp:"Upp till tre jamforelseversioner visas automatiskt i mallar och rapporter."},
-  {cat:"budget",q:"Hur tar man bort en version i Register - Versioner?",opts:["Markera raden och tryck Delete","Satt 'Dolj version' till 1","Det gar inte - anvand Administration Radera Version","Kontakta support"],correct:2,exp:"Registermallen kan bara lagga till/modifiera. Radering sker via Administration Radera Version."},
-  {cat:"budget",q:"Vad innebar morkgra celler i Forecast Pro?",opts:["Cellen ar redigerbar","Cellen fylls i via rullista","Cellen ar ID-nyckel och gar ej att andra","Cellen ar tillfalligt last"],correct:2,exp:"Morkgra = ID-nyckel. Ljusgra = redigerbar. Vit = rullista."},
-  {cat:"budget",q:"Vad matas in i Inmatning - Konto Helar?",opts:["Periodsbelopp per manad","Totalbelopp per budget-/prognospost","Utfallsdata fran affarssystemet","Kontoplanen"],correct:1,exp:"Helar = totalbelopp. Manad = periodfordelning."},
-  {cat:"budget",q:"Vad innebar taggen [Last] i Inmatning - Konto Helar?",opts:["Faltet skyddas av admin","Beloppet genereras av Personal- eller Drivare-modulen","Versionen ar last","Kontot saknar periodiseringsnyckel"],correct:1,exp:"[Last] + [Personal]/[Drivare] = belopp som genererats automatiskt av dessa moduler."},
-  {cat:"budget",q:"Hur markerar man att inmatning ar klar pa en rad?",opts:["Klicka 'Klar' i menyfallet","Satt cellen till 1","Valj 'x' i rullistan for Klar-markering","Spara med Store Data"],correct:2,exp:"Klar-markeringen gors via rullista och sammanstalls i Rapport - Processoversikt."},
-  {cat:"reports",q:"Vad ar Drill Down i Exopen?",opts:["En rapportfunktion for att summera data","En funktion for att borra ner till detaljniva","En import av utfallsdata","En funktion for att kopiera versioner"],correct:1,exp:"Drill Down anvands for att se belopp pa transaktions- eller kontoniva."},
-  {cat:"reports",q:"Hur ska intakter anges i Rapport - Konto Helar?",opts:["Som negativa varden (-)","Som positiva varden (+)","Spelar ingen roll","Med I framfor beloppet"],correct:1,exp:"Intakter = positiva (+), kostnader = negativa (-). Annars blir summeringarna fel."},
-  {cat:"reports",q:"Vad visar 'Datasets' i Drill Down-dialogrutan?",opts:["Antal konton i rapporten","Antal Exopen-funktioner som paverkar den markerade cellen","Antal transaktionsrader","Antal versioner"],correct:1,exp:"Datasets = antal Exopen-funktioner (t.ex. ExoMatrixLoad) som paverkar vald cell."},
-  {cat:"personal",q:"Vilka tre tjanstetyper hanteras i Register - Personalparametrar?",opts:["Heltid, deltid, konsult","KT, KM, TM","Junior, senior, chef","Fast, rorlig, provision"],correct:1,exp:"KT = kollektivanstald timlon, KM = kollektivanstald manadsilon, TM = tjansteman manadsilon."},
-  {cat:"personal",q:"Vad hander om bara ett namn anges for en forman i Personalparametrar?",opts:["Formanen ignoreras","Enbart sociala avgifter beraknas pa formanbeloppet","Beloppet laggs till kontoplanen","Systemet ger fel"],correct:1,exp:"Namn utan konto = bara sociala avgifter. Anges ocksa konto hamnar beloppet i budget/prognos."},
-  {cat:"admin",q:"Vad maste goras INNAN data kan kopieras till en version som redan innehaller data?",opts:["Versionen maste aktiveras","Datarensning maste genomforas","Versionen maste lasas upp","Admin maste godkanna"],correct:1,exp:"Kopiering till version med befintlig data ar inte mojlig - datarensning kravs forst."},
-  {cat:"admin",q:"Kan radering av version angras?",opts:["Ja, inom 24 timmar","Ja, via support","Nej, all information raderas permanent","Ja, via Error Log"],correct:2,exp:"Radering ar permanent."},
-  {cat:"prognos",q:"Var finns utfallsdata som lases in via 'Las in utfall'?",opts:["I Register - Konton","I vERP_Huvudbok","I Rapport - Processoversikt","I Error Log"],correct:1,exp:"Utfallsdata hamtas fran vERP_Huvudbok i affarssystemet."},
-  {cat:"prognos",q:"Vad styr 'Inmatning fr.om.' i Register - Versioner?",opts:["Startdatum for budgetarbetet","Perioden fran och med vilken prognosvarden ska visas/matas in","Det datum versionen skapades","Sista datum for inmatning"],correct:1,exp:"Fr.o.m.-perioden avgor vad som visas som utfall vs. prognos."},
-  {cat:"admin",q:"Vad gor 'Copy to new sheet' i Drill Down?",opts:["Sparar rapporten som PDF","Kopierar transaktioner till nytt Excel-blad","Duplicerar versionen","Exporterar till CSV"],correct:1,exp:"Kopierar transaktionsraderna och lagger dem pa ett nytt blad i Excel automatiskt."},
-  {cat:"reports",q:"Vad styr kontouppsattningen i Rapport - Konto Helar?",opts:["Vilken version som valjs","Kontomallen kopplad till kostnadsstallet","Antal perioder i versionen","Vilket bolag som ar aktivt"],correct:1,exp:"Kontouppsattningen speglar alltid kontomallen kopplad till kostnadsstallet."},
-  {cat:"budget",q:"Vilket format anvands for 'Rakenskapsar fr.om.'?",opts:["yyyy-mm-dd","yyyymm","mm/yyyy","dd-mm-yyyy"],correct:1,exp:"Formatet ar 'yyyymm', t.ex. 202201 for januari 2022."},
-  {cat:"reports",q:"Vad visar kolumnen Utfall R12 i Inmatning - Konto Helar?",opts:["Utfall hela foregaende ar","R12 fran utfall fram till manaden innan forsta budget-/prognosperiod","Rullande 12 manader fran inmatningsdatum","Utfall innevarande ar"],correct:1,exp:"R12 = perioden fram t.o.m. manaden innan budget-/prognosperiodens start."},
+const QUIZ=[
+  {cat:"budget",q:"Vad betyder fältet 'Dölj version' (värde 1) i Register – Versioner?",opts:["Versionen raderas permanent","Versionen låses för registerhantering, inmatning och rapportering","Versionen döljs bara i rapportering","Versionen kan inte kopieras"],correct:1,exp:"1 = Låst, 0 = Öppen. Versionen stängs helt för all hantering."},
+  {cat:"budget",q:"Hur många jämförelseversioner kan anges i standardversionen?",opts:["En","Två","Tre","Fyra"],correct:2,exp:"Upp till tre jämförelseversioner visas automatiskt i mallar och rapporter."},
+  {cat:"budget",q:"Hur tar man bort en version i Register – Versioner?",opts:["Markera raden och tryck Delete","Sätt 'Dölj version' till 1","Det går inte – använd Administration Radera Version","Kontakta support"],correct:2,exp:"Registermallen kan bara lägga till/modifiera. Radering sker via Administration Radera Version."},
+  {cat:"budget",q:"Vad innebär mörkgrå celler i Forecast Pro?",opts:["Cellen är redigerbar","Cellen fylls i via rullista","Cellen är ID-nyckel och går ej att ändra","Cellen är tillfälligt låst"],correct:2,exp:"Mörkgrå = ID-nyckel. Ljusgrå = redigerbar. Vit = rullista."},
+  {cat:"budget",q:"Vad matas in i Inmatning – Konto Helår?",opts:["Periodsbelopp per månad","Totalbelopp per budget-/prognospost","Utfallsdata från affärssystemet","Kontoplanen"],correct:1,exp:"Helår = totalbelopp. Månad = periodfördelning."},
+  {cat:"budget",q:"Vad innebär taggen [Låst] i Inmatning – Konto Helår?",opts:["Fältet skyddas av admin","Beloppet genereras av Personal- eller Drivare-modulen","Versionen är låst","Kontot saknar periodiseringsnyckel"],correct:1,exp:"[Låst] + [Personal]/[Drivare] = belopp som genererats automatiskt av dessa moduler."},
+  {cat:"budget",q:"Hur markerar man att inmatning är klar på en rad?",opts:["Klicka 'Klar' i menyfältet","Sätt cellen till 1","Välj 'x' i rullistan för Klar-markering","Spara med Store Data"],correct:2,exp:"Klar-markeringen görs via rullista och sammanställs i Rapport – Processöversikt."},
+  {cat:"reports",q:"Vad är Drill Down i Exopen?",opts:["En rapportfunktion för att summera data","En funktion för att borra ner till detaljnivå","En import av utfallsdata","En funktion för att kopiera versioner"],correct:1,exp:"Drill Down används för att se belopp på transaktions- eller kontonivå."},
+  {cat:"reports",q:"Hur ska intäkter anges i Rapport – Konto Helår?",opts:["Som negativa värden (−)","Som positiva värden (+)","Spelar ingen roll","Med I framför beloppet"],correct:1,exp:"Intäkter = positiva (+), kostnader = negativa (−). Annars blir summeringarna fel."},
+  {cat:"reports",q:"Vad visar 'Datasets' i Drill Down-dialogrutan?",opts:["Antal konton i rapporten","Antal Exopen-funktioner som påverkar den markerade cellen","Antal transaktionsrader","Antal versioner"],correct:1,exp:"Datasets = antal Exopen-funktioner (t.ex. ExoMatrixLoad) som påverkar vald cell."},
+  {cat:"personal",q:"Vilka tre tjänstetyper hanteras i Register – Personalparametrar?",opts:["Heltid, deltid, konsult","KT, KM, TM","Junior, senior, chef","Fast, rörlig, provision"],correct:1,exp:"KT = kollektivanställd timlön, KM = kollektivanställd månadslön, TM = tjänsteman månadslön."},
+  {cat:"personal",q:"Vad händer om bara ett namn anges för en förmån i Personalparametrar?",opts:["Förmånen ignoreras","Enbart sociala avgifter beräknas på förmånsbeloppet","Beloppet läggs till kontoplanen","Systemet ger fel"],correct:1,exp:"Namn utan konto = bara sociala avgifter. Anges också konto hamnar beloppet i budget/prognos."},
+  {cat:"admin",q:"Vad måste göras INNAN data kan kopieras till en version som redan innehåller data?",opts:["Versionen måste aktiveras","Datarensning måste genomföras","Versionen måste låsas upp","Admin måste godkänna"],correct:1,exp:"Kopiering till version med befintlig data är inte möjlig – datarensning krävs först."},
+  {cat:"admin",q:"Kan radering av version ångras?",opts:["Ja, inom 24 timmar","Ja, via support","Nej, all information raderas permanent","Ja, via Error Log"],correct:2,exp:"Radering är permanent."},
+  {cat:"prognos",q:"Var finns utfallsdata som läses in via 'Läs in utfall'?",opts:["I Register – Konton","I vERP_Huvudbok","I Rapport – Processöversikt","I Error Log"],correct:1,exp:"Utfallsdata hämtas från vERP_Huvudbok i affärssystemet."},
+  {cat:"prognos",q:"Vad styr 'Inmatning fr.o.m.' i Register – Versioner?",opts:["Startdatum för budgetarbetet","Perioden från och med vilken prognosvärden ska visas/matas in","Det datum versionen skapades","Sista datum för inmatning"],correct:1,exp:"Fr.o.m.-perioden avgör vad som visas som utfall vs. prognos."},
+  {cat:"admin",q:"Vad gör 'Copy to new sheet' i Drill Down?",opts:["Sparar rapporten som PDF","Kopierar transaktioner till nytt Excel-blad","Duplicerar versionen","Exporterar till CSV"],correct:1,exp:"Kopierar transaktionsraderna och lägger dem på ett nytt blad i Excel automatiskt."},
+  {cat:"reports",q:"Vad styr kontouppsättningen i Rapport – Konto Helår?",opts:["Vilken version som väljs","Kontomallen kopplad till kostnadsstället","Antal perioder i versionen","Vilket bolag som är aktivt"],correct:1,exp:"Kontouppsättningen speglar alltid kontomallen kopplad till kostnadsstället."},
+  {cat:"budget",q:"Vilket format används för 'Räkenskapsår fr.o.m.'?",opts:["yyyy-mm-dd","yyyymm","mm/yyyy","dd-mm-yyyy"],correct:1,exp:"Formatet är 'yyyymm', t.ex. 202201 för januari 2022."},
+  {cat:"reports",q:"Vad visar kolumnen Utfall R12 i Inmatning – Konto Helår?",opts:["Utfall hela föregående år","R12 från utfall fram till månaden innan första budget-/prognosperiod","Rullande 12 månader från inmatningsdatum","Utfall innevarande år"],correct:1,exp:"R12 = perioden fram t.o.m. månaden innan budget-/prognosperiodens start."},
 ];
 
-const FAQ_DATA=[
-  {cat:"Allmant",q:"Vad ar Forecast Pro?",a:"Forecast Pro ar Exopens budgeterings- och prognosverktyg som bygger ovanpa Microsoft Excel. Det hanterar budget- och prognosversioner, personalplanering, drivare/fordelning och rapportering."},
-  {cat:"Allmant",q:"Hur oppnar man Selections-dialogrutan?",a:"Selections nas via Exopens menyfalt langst upp i Excel. Samtliga filtreringar maste fyllas i innan man klickar Load Data."},
-  {cat:"Allmant",q:"Vad innebar fargkoderna?",a:"Morkgra = ID-nyckel, ej andringsbar. Ljusgra = redigerbart falt. Vit = rullista med fordefinierade val."},
-  {cat:"Allmant",q:"Vad gor man om man ser en varningstext?",a:"En varningstext innebar att ett falt inte ar korrekt ifyllt. Data kan inte sparas med Store Data forran alla varningstexter ar atgardade."},
-  {cat:"Budget",q:"Hur skapar man en ny budgetversion?",a:"Ga till Register - Versioner, oppna Selections, ladda data och fyll i en ny rad med Typ = B, version nr, rakenskapsar fr.om./t.om. Klicka Store Data."},
-  {cat:"Budget",q:"Vad ar skillnaden mellan B och P i Typ?",a:"B (Budget) = samtliga perioder ar budgeterade. P (Prognos) = mix av utfall och prognos - 'Inmatning fr.om.' avgor gransen."},
-  {cat:"Budget",q:"Kan man mata in belopp for flera ar?",a:"Ja, standardversionen hanterar upp till 36 perioder med multipla arskolumner bredvid varandra."},
-  {cat:"Budget",q:"Vad gor periodiseringsnyckeln?",a:"Den styr hur ett arsbelopp fordelas per manad. Kopplas till kontot i Register - Kontoadministration."},
-  {cat:"Budget",q:"Hur raderar man ett inmatat belopp?",a:"Ta bort innehallet i faltet och klicka Store Data."},
-  {cat:"Personal",q:"Maste Register - Personalparametrar alltid fyllas i?",a:"Nej, bara om modulen Personal ska anvandas."},
-  {cat:"Personal",q:"Vad hander med Personal-belopp i Inmatning - Konto Helar?",a:"De visas som lasta poster med taggarna [Last] och [Personal]. Andringar gors i Inmatning - Personal."},
-  {cat:"Rapporter",q:"Vad ar skillnaden mellan Rapport Konto Helar och Manad?",a:"Helar visar totalbelopp. Manad visar beloppen fordelade per period/manad."},
-  {cat:"Rapporter",q:"Hur anvander man Drill Down?",a:"Markera en cell i rapporten och klicka Drill Down i Exopen-menyn. En dialogruta med transaktionsdetaljer visas."},
-  {cat:"Rapporter",q:"Vad visar Rapport - Processoversikt?",a:"Klarmarkeringsstatus for alla kostnadsstallen - ett satt att folja upp budgetarbetets framsteg."},
-  {cat:"Administration",q:"Varfor kan inte en version kopieras direkt?",a:"Om mottagande version redan innehaller data maste datarensning goras forst. Det ar permanent!"},
-  {cat:"Administration",q:"Kan radering angras?",a:"Nej. Radering i Administration - Radera Version ar permanent."},
-  {cat:"Prognos",q:"Hur skapar man en ny prognosversion?",a:"Skapa version med Typ = P. Ange 'Inmatning fr.om.' for utfall/prognos-gransen. Kopiera data via Administration - Kopiera Version."},
-  {cat:"Prognos",q:"Vad ar 'Las in utfall' till for?",a:"Laser in faktiskt utfall fran affarssystemets huvudbok (vERP_Huvudbok) sa att rapporten visar ratt utfall for historiska perioder."},
+const FAQ=[
+  {cat:"Allmänt",q:"Vad är Forecast Pro?",a:"Forecast Pro är Exopens budgeterings- och prognosverktyg som bygger ovanpå Microsoft Excel. Det hanterar budget- och prognosversioner, personalplanering, drivare/fördelning och rapportering."},
+  {cat:"Allmänt",q:"Hur öppnar man Selections-dialogrutan?",a:"Selections nås via Exopens menyfält längst upp i Excel. Samtliga filtreringar måste fyllas i innan man klickar Load Data."},
+  {cat:"Allmänt",q:"Vad innebär färgkoderna?",a:"Mörkgrå = ID-nyckel, ej ändringsbar. Ljusgrå = redigerbart fält. Vit = rullista med fördefinierade val."},
+  {cat:"Allmänt",q:"Vad gör man om man ser en varningstext?",a:"En varningstext innebär att ett fält inte är korrekt ifyllt. Data kan inte sparas med Store Data förrän alla varningstexter är åtgärdade."},
+  {cat:"Budget",q:"Hur skapar man en ny budgetversion?",a:"Gå till Register – Versioner, öppna Selections, ladda data och fyll i en ny rad med Typ = B, version nr, räkenskapsår fr.o.m./t.o.m. Klicka Store Data."},
+  {cat:"Budget",q:"Vad är skillnaden mellan B och P i Typ?",a:"B (Budget) = samtliga perioder är budgeterade. P (Prognos) = mix av utfall och prognos – 'Inmatning fr.o.m.' avgör gränsen."},
+  {cat:"Budget",q:"Kan man mata in belopp för flera år?",a:"Ja, standardversionen hanterar upp till 36 perioder med multipla årskolumner bredvid varandra."},
+  {cat:"Budget",q:"Vad gör periodiseringsnyckeln?",a:"Den styr hur ett årsbelopp fördelas per månad. Kopplas till kontot i Register – Kontoadministration."},
+  {cat:"Budget",q:"Hur raderar man ett inmatat belopp?",a:"Ta bort innehållet i fältet och klicka Store Data."},
+  {cat:"Personal",q:"Måste Register – Personalparametrar alltid fyllas i?",a:"Nej, bara om modulen Personal ska användas."},
+  {cat:"Personal",q:"Vad händer med Personal-belopp i Inmatning – Konto Helår?",a:"De visas som låsta poster med taggarna [Låst] och [Personal]. Ändringar görs i Inmatning – Personal."},
+  {cat:"Rapporter",q:"Vad är skillnaden mellan Rapport Konto Helår och Månad?",a:"Helår visar totalbelopp. Månad visar beloppen fördelade per period/månad."},
+  {cat:"Rapporter",q:"Hur fungerar Drill Down?",a:"Markera en cell med belopp i en rapport, klicka Drill Down i Exopen-menyn. En dialogruta visar transaktioner eller kontodetaljer."},
+  {cat:"Prognos",q:"Vad är skillnaden mellan budget och prognos?",a:"Budget (B) = alla perioder budgeterade. Prognos (P) = utfall visas t.o.m. en viss period, resten är prognos."},
+  {cat:"Admin",q:"Kan man ångra en radering?",a:"Nej. Radering av version eller bolag är permanent. Enda sättet att återställa är att läsa in hela databasen på nytt."},
+  {cat:"Admin",q:"Vad visar Error Log?",a:"Alla fel som uppstått under bearbetning av en version. Tom logg = inga fel."},
 ];
 
-const CRIT={
+const REVIEW={
   content:[
-    {sev:"h",t:"Introduktionsavsnitt saknas",txt:"Ingen sida forklarar hur Forecast Pro fungerar som helhet eller i vilken ordning man arbetar.",fix:"Forslag: En introduktionssida med systemoversikt och rekommenderat arbetsflode."},
-    {sev:"h",t:"Inga arbetsfloden kopplar avsnitten",txt:"Avsnitten ar isolerade. Det framgar inte att Kontoplan > Kontoadmin > Inmatning ar en logisk kedja.",fix:"Forslag: En 'Arbetsflode'-vy som visar beroenden och ordning."},
-    {sev:"m",t:"Avsnittsnamn ar interna dokument-namn",txt:"'Register - Versioner & Kontomallar' ar ett internt namn. En ny kund forstar inte vad hen ska gora.",fix:"Forslag: Uppgiftsorienterade namn, t.ex. 'Skapa och hantera versioner'."},
-    {sev:"l",t:"PDF-sidfot syns i varje sida",txt:"Exopen Systems AB-sidfoten med adress ar noise i ett utbildningsgranssnitt.",fix:"Forslag: Rendera PDF utan sidfot, eller lagg till en CSS-mask langst ner."},
+    {sev:"h",t:"PDF-format begränsar lärande",txt:"Statiska PDF:er med skärmbilder ger ingen interaktivitet. Användaren kan inte klicka, testa eller experimentera.",fix:"→ Ersätt med interaktiva steg-för-steg guider eller videodemos"},
+    {sev:"h",t:"Ingen koppling teori → praktik",txt:"Det saknas övningar och use-cases. Användaren läser men gör aldrig själv.",fix:"→ Lägg till scenariobaserade övningar per avsnitt"},
+    {sev:"m",t:"Quiz täcker inte alla avsnitt",txt:"20 frågor för 18 avsnitt ger ojämn täckning. Vissa ämnen saknas helt.",fix:"→ Minst 2–3 frågor per avsnitt, helst med förklarande feedback"},
+    {sev:"m",t:"Ingen progression eller förkunskapskrav",txt:"Alla avsnitt är tillgängliga direkt. Inga förkunskapskrav eller rekommenderad ordning.",fix:"→ Lägg till rekommenderad lärstig och visuell progression"},
+    {sev:"l",t:"Färgkoder förklaras upprepade gånger",txt:"Samma färgkodsinformation (mörkgrå/ljusgrå/vit) upprepas i nästan varje PDF.",fix:"→ Samla i ett gemensamt intro-avsnitt"},
   ],
   design:[
-    {sev:"h",t:"Ingen mobilanpassning",txt:"Sidebaren med fast bredd och header gor portalen oanvandbar pa mobil.",fix:"Forslag: Hamburgermeny for mobil (< 768px)."},
-    {sev:"m",t:"Hemskermen saknar rekommenderat nasta steg",txt:"Alla kort ser likadana ut - inget kort ar framhavt som 'borja har'.",fix:"Forslag: Visa ett 'Fortsatt har'-kort baserat pa senast oppnat avsnitt."},
-    {sev:"l",t:"Inga loading-states for PDF-inbaddning",txt:"Medan PDF laddar syns en tom yta utan feedback.",fix:"Forslag: Lagg till en spinner eller skeleton medan iframe laddar."},
+    {sev:"h",t:"PDF-inbäddning har dålig UX",txt:"Browser-native PDF-viewer saknar zoom/sök i vissa browsers. Laddtider varierar.",fix:"→ Använd pdf.js för konsekvent rendering, eller konvertera till HTML"},
+    {sev:"m",t:"Sidebar har för liten typografi",txt:"Navigeringen är trång med 10px text. Svårt att skanna och hitta rätt.",fix:"→ Öka fontstorlek till minst 13px, tydligare visuell hierarki"},
+    {sev:"m",t:"Ingen mobil-anpassning",txt:"Portalen fungerar dåligt på mindre skärmar. Sidebar överlappar innehåll.",fix:"→ Responsiv design med hamburger-meny på mobil"},
+    {sev:"l",t:"Progress-tracking är ytlig",txt:"Endast binär klar/ej klar. Ingen info om tid spenderad eller svårighetsgrad.",fix:"→ Lägg till uppskattad tid per avsnitt och detaljerad progress"},
   ]
 };
 
-let curId=null, curPdfIdx=0;
-let done=JSON.parse(localStorage.getItem("fp5_done")||"[]");
-let qst=JSON.parse(localStorage.getItem("fp5_quiz")||"{}");
-let qcat="all", fcat="all";
+// ═══════════════════ STATE ═══════════════════
+let done=JSON.parse(localStorage.getItem("fp6_done")||"[]");
+let quizState=JSON.parse(localStorage.getItem("fp6_quiz")||"{}");
+let currentLesson=null,currentPdfIdx=0;
+let quizCat="all",faqCat="all";
 
-function sv(v,btn){
-  document.querySelectorAll(".view").forEach(el=>el.classList.remove("active"));
-  document.getElementById("view-"+(v==="reader"?"reader":v))?.classList.add("active");
-  document.querySelectorAll(".htab").forEach(b=>b.classList.remove("active"));
-  const tab=document.querySelector(`.htab[data-v="${v==="reader"?"home":v}"]`);
-  if(tab)tab.classList.add("active");
-  ["c","q","f"].forEach(k=>document.getElementById("sbf-"+k)?.classList.remove("av"));
-  if(v==="home"||v==="reader")document.getElementById("sbf-c")?.classList.add("av");
-  if(v==="quiz")document.getElementById("sbf-q")?.classList.add("av");
-  if(v==="faq")document.getElementById("sbf-f")?.classList.add("av");
+// ═══════════════════ NAVIGATION ═══════════════════
+function switchView(id,btn){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  const el=document.getElementById("view-"+id);
+  if(el)el.classList.add("active");
+  document.querySelectorAll(".header-nav button").forEach(b=>b.classList.remove("active"));
+  if(btn)btn.classList.add("active");
+  else{
+    const map={home:0,quiz:1,faq:2,review:3};
+    const idx=map[id];
+    if(idx!==undefined)document.querySelectorAll(".header-nav button")[idx]?.classList.add("active");
+  }
   window.scrollTo(0,0);
-  if(v==="home")buildGrid();
 }
 
+// ═══════════════════ SIDEBAR ═══════════════════
+function buildSidebar(){
+  const nav=document.getElementById("sb-nav");
+  const cats=Object.entries(CAT);
+  nav.innerHTML=cats.map(([key,cat])=>{
+    const items=ALL_IDS.filter(id=>LESSONS[id].cat===key);
+    return `<div class="cat-section"><div class="cat-header open" onclick="toggleCat(this)"><div class="cat-dot" style="background:${cat.color}"></div><div class="cat-label">${cat.label}</div><div class="cat-count">${items.length}</div><div class="cat-chevron">▼</div></div><div class="cat-items">${items.map(id=>{const l=LESSONS[id];return `<div class="nav-link ${done.includes(id)?'done':''}" data-id="${id}" onclick="openLesson('${id}')"><span style="font-family:var(--mono);font-size:10px;color:var(--text-3);min-width:42px;flex-shrink:0">${l.ref||''}</span><span class="nav-text">${l.title}</span><span class="check">✓</span></div>`;}).join("")}</div></div>`;
+  }).join("")
+  // Add Quiz link at bottom of sidebar
+  + `<div style="margin-top:12px;padding:0 2px"><div class="cat-section"><div class="nav-link" onclick="switchView('quiz')" style="background:var(--purple-bg);border-left:3px solid var(--purple);font-weight:600;color:var(--purple)"><span style="font-size:15px;margin-right:4px">🎯</span><span>Quiz – Testa dig själv</span></div></div></div>`;
+}
+
+function toggleCat(el){
+  el.classList.toggle("open");
+  const items=el.nextElementSibling;
+  items.classList.toggle("collapsed");
+}
+
+function updateSidebar(){
+  document.querySelectorAll(".nav-link").forEach(el=>{
+    const id=el.dataset.id;
+    el.classList.toggle("done",done.includes(id));
+    el.classList.toggle("active",currentLesson===id);
+  });
+}
+
+function filterSidebar(q){
+  const ql=q.toLowerCase().trim();
+  document.querySelectorAll(".nav-link").forEach(el=>{
+    const txt=el.textContent.toLowerCase();
+    el.style.display=(!ql || txt.includes(ql))?"":"none";
+  });
+}
+
+// ═══════════════════ HOME GRID ═══════════════════
+function buildGrid(){
+  const grid=document.getElementById("home-grid");
+  const cats=Object.entries(CAT);
+  grid.innerHTML=cats.map(([key,cat])=>{
+    const items=ALL_IDS.filter(id=>LESSONS[id].cat===key);
+    return `<div class="section-label">${cat.label}</div><div class="cards-grid">${items.map(id=>{
+      const l=LESSONS[id];
+      const isDone=done.includes(id);
+      return `<div class="card" onclick="openLesson('${id}')"><div class="card-stripe" style="background:${cat.color}"></div><div class="card-cat" style="color:${cat.color}">${l.ref&&l.ref!=='—'?l.ref+' · ':''}${cat.label}</div><div class="card-title">${l.title}</div>${l.desc?`<div style="font-size:12px;color:var(--text-3);margin-bottom:8px;line-height:1.5">${l.desc}</div>`:""}<div class="card-meta">${l.pdfs.length} dokument${isDone?' · <span class="card-done">Klar ✓</span>':""}</div></div>`;
+    }).join("")}</div>`;
+  }).join("");
+}
+
+// ═══════════════════ READER ═══════════════════
 function openLesson(id){
-  const l=LESSONS[id]; if(!l)return;
-  curId=id; curPdfIdx=0;
-  sv("reader");
-  const cm=CAT[l.cat]||{};
-  document.getElementById("bc-cat").textContent=cm.lbl||l.cat;
-  document.getElementById("bc-ttl").textContent=l.title;
-  const badge=document.getElementById("rdr-badge");
-  badge.textContent=cm.lbl||l.cat; badge.style.background=cm.col||"#333";
+  currentLesson=id;
+  currentPdfIdx=0;
+  const l=LESSONS[id];
+  const cat=CAT[l.cat];
+  document.getElementById("bc-cat").textContent=cat.label;
+  document.getElementById("bc-title").textContent=l.title;
+  document.getElementById("rdr-badge").textContent=cat.label;
+  document.getElementById("rdr-badge").style.background=cat.color;
   document.getElementById("rdr-title").textContent=l.title;
   renderPdf();
-  updSidebar();
+  updateSidebar();
+  switchView("reader");
 }
 
 function renderPdf(){
-  const l=LESSONS[curId];
-  const total=l.pdfs.length;
-  const src=l.pdfs[curPdfIdx];
-  document.getElementById("pdf-frame").src=src;
-  document.getElementById("pdf-source").textContent=src.replace("pdfs/","").replace(".pdf","");
-  let dots="";
-  for(let i=0;i<total;i++){
-    const cls=i===curPdfIdx?"pa":(i<curPdfIdx?"pd":"");
-    const name=l.pdfs[i].replace("pdfs/","").replace(".pdf","");
-    dots+=`<div class="pdot ${cls}" onclick="goPdf(${i})" title="${name}">${i+1}</div>`;
+  const l=LESSONS[currentLesson];
+  const pdf=l.pdfs[currentPdfIdx];
+  document.getElementById("pdf-frame").src=pdf;
+  // Show ref number + Swedish display name
+  const fn=pdf.split("/").pop();
+  const refMatch=fn.match(/^(\d+\.\d+(?:\.\d+)?)/);
+  document.getElementById("pdf-name").textContent=(refMatch?refMatch[1]+" · ":"")+pdfName(pdf);
+  document.getElementById("pdf-counter").textContent=`${currentPdfIdx+1} / ${l.pdfs.length}`;
+  document.getElementById("btn-prev").disabled=currentPdfIdx===0;
+  const isLast=currentPdfIdx===l.pdfs.length-1;
+  const btnNext=document.getElementById("btn-next");
+  if(isLast){
+    btnNext.textContent="✓ Markera som klar";
+    btnNext.className="btn btn-green";
+  }else{
+    btnNext.textContent="Nästa →";
+    btnNext.className="btn btn-primary";
   }
-  document.getElementById("pdf-dots").innerHTML=dots;
-  document.getElementById("pdf-ctr").textContent=total>1?`${curPdfIdx+1} / ${total}`:"";
-  document.getElementById("btn-prev").disabled=curPdfIdx===0;
-  const nb=document.getElementById("btn-next");
-  const db=document.getElementById("done-bar");
-  if(curPdfIdx===total-1){
-    if(!done.includes(curId)){
-      nb.textContent="Markera som klar"; nb.className="btn btn-success"; nb.onclick=finishLesson;
-    } else {
-      nb.textContent="Klar"; nb.className="btn btn-ghost"; nb.onclick=null;
-    }
-    if(done.includes(curId))showDone(); else db.style.display="none";
-  } else {
-    nb.textContent="Nasta"; nb.className="btn btn-primary"; nb.onclick=nextPdf;
-    db.style.display="none";
+  // Dots
+  const dots=document.getElementById("pdf-dots");
+  dots.innerHTML=l.pdfs.map((_,i)=>`<div class="dot ${i===currentPdfIdx?'dot-active':i<currentPdfIdx?'dot-done':''}" onclick="goToPdf(${i})">${i+1}</div>`).join("");
+  // Done banner
+  const banner=document.getElementById("done-banner");
+  if(done.includes(currentLesson)){
+    banner.style.display="flex";
+    const nextId=ALL_IDS[ALL_IDS.indexOf(currentLesson)+1];
+    document.getElementById("next-hint").textContent=nextId?` Nästa: ${LESSONS[nextId].title}`:" Alla avsnitt klara!";
+  }else{
+    banner.style.display="none";
   }
 }
 
-function goPdf(i){curPdfIdx=i;renderPdf();window.scrollTo(0,0);}
-function prevPdf(){if(curPdfIdx>0){curPdfIdx--;renderPdf();window.scrollTo(0,0);}}
-function nextPdf(){const l=LESSONS[curId];if(curPdfIdx<l.pdfs.length-1){curPdfIdx++;renderPdf();window.scrollTo(0,0);}}
-
-function finishLesson(){
-  if(!done.includes(curId))done.push(curId);
-  localStorage.setItem("fp5_done",JSON.stringify(done));
-  updProgress();updSidebar();buildGrid();showDone();
-  const nb=document.getElementById("btn-next");
-  nb.textContent="Klar";nb.className="btn btn-ghost";nb.onclick=null;
+function goToPdf(i){currentPdfIdx=i;renderPdf();}
+function prevPdf(){if(currentPdfIdx>0){currentPdfIdx--;renderPdf();}}
+function nextPdf(){
+  const l=LESSONS[currentLesson];
+  if(currentPdfIdx<l.pdfs.length-1){currentPdfIdx++;renderPdf();}
+  else{markDone(currentLesson);}
 }
 
-function showDone(){
-  const db=document.getElementById("done-bar"); db.style.display="flex";
-  const nxt=ALL_IDS[ALL_IDS.indexOf(curId)+1];
-  const nl=document.getElementById("next-link");
-  nl.innerHTML=nxt&&LESSONS[nxt]?` Nasta: <a href="#" onclick="openLesson('${nxt}');return false;" style="color:var(--blue);font-weight:600">${LESSONS[nxt].title}</a>`:" Alla avsnitt klara!";
+function prevLesson(){const i=ALL_IDS.indexOf(currentLesson);if(i>0)openLesson(ALL_IDS[i-1]);}
+function nextLesson(){const i=ALL_IDS.indexOf(currentLesson);if(i<ALL_IDS.length-1)openLesson(ALL_IDS[i+1]);}
+
+function markDone(id){
+  if(!done.includes(id))done.push(id);
+  localStorage.setItem("fp6_done",JSON.stringify(done));
+  updateProgress();updateSidebar();buildGrid();renderPdf();
 }
 
-function buildGrid(){
-  const g=document.getElementById("hgrid"); g.innerHTML="";
-  ALL_IDS.forEach(id=>{
-    const l=LESSONS[id]; if(!l)return;
-    const cm=CAT[l.cat]||{};
-    const d=done.includes(id);
-    const div=document.createElement("div");
-    div.className="hcard";
-    div.innerHTML=`<div class="hcard-bar" style="background:${cm.col||'#999'}"></div><div class="hcard-cat" style="color:${cm.col||'#999'}">${cm.lbl||l.cat}</div><div class="hcard-title">${l.title}</div><div class="hcard-meta"><span>${l.pdfs.length} dokument</span>${d?'<span class="done-pill">Klar</span>':''}</div>`;
-    div.onclick=()=>openLesson(id);
-    g.appendChild(div);
-  });
-  document.getElementById("st-done").textContent=done.length;
-}
-
-function buildSidebar(){
-  const cats=["budget","personal","reports","prognos","admin"];
-  const nav=document.getElementById("sbnav"); nav.innerHTML="";
-  cats.forEach(cat=>{
-    const cm=CAT[cat];
-    const items=ALL_IDS.filter(id=>LESSONS[id]&&LESSONS[id].cat===cat);
-    const div=document.createElement("div"); div.className="ncat";
-    div.innerHTML=`<div class="ncat-hdr open" onclick="toggleCat(this)"><span class="ncat-dot" style="background:${cm.col}"></span><span class="ncat-lbl">${cm.lbl}</span><span class="nchev">&#9660;</span></div><ul class="ncat-items">${items.map(id=>`<li><div class="nlink" data-id="${id}" onclick="openLesson('${id}')">${LESSONS[id].title}<span class="chk" style="display:none">&#10003;</span></div></li>`).join("")}</ul>`;
-    nav.appendChild(div);
-  });
-}
-
-function updSidebar(){
-  document.querySelectorAll(".nlink").forEach(el=>{
-    const id=el.dataset.id;
-    el.classList.toggle("active",id===curId);
-    el.classList.toggle("done",done.includes(id)&&id!==curId);
-    const c=el.querySelector(".chk");
-    if(c)c.style.display=done.includes(id)?"":"none";
-  });
-}
-
-function toggleCat(hdr){hdr.nextElementSibling.classList.toggle("collapsed");hdr.classList.toggle("open");}
-function sbFilter(q){
-  const ql=q.toLowerCase();
-  document.querySelectorAll(".nlink").forEach(el=>{el.style.display=el.textContent.toLowerCase().includes(ql)?"":"none";});
-}
-
-function updProgress(){
+// ═══════════════════ PROGRESS ═══════════════════
+function updateProgress(){
   const total=ALL_IDS.length,d=done.length;
-  document.getElementById("ptxt").textContent=`${d}/${total}`;
-  document.getElementById("pfill").style.width=`${d/total*100}%`;
-  document.getElementById("st-done").textContent=d;
+  document.getElementById("prog-text").textContent=`${d} / ${total}`;
+  const circle=document.getElementById("prog-circle");
+  const circumference=2*Math.PI*9;
+  circle.style.strokeDashoffset=circumference-(d/total)*circumference;
+  document.getElementById("stat-done").textContent=d;
 }
 
+// ═══════════════════ QUIZ ═══════════════════
 function buildQuiz(){
-  const cats=["all",...new Set(QUIZ_DATA.map(q=>q.cat))];
-  document.getElementById("qfilters").innerHTML=cats.map(c=>`<button class="qfbtn ${c===qcat?"active":""}" onclick="setQcat('${c}')">${c==="all"?"Alla fragor":(CAT[c]?.lbl||c)}</button>`).join("");
-  const filtered=qcat==="all"?QUIZ_DATA:QUIZ_DATA.filter(q=>q.cat===qcat);
-  document.getElementById("qlist").innerHTML=filtered.map((q,i)=>{
-    const qid=`${i}_${qcat}`,st=qst[qid];
-    const opts=q.opts.map((o,j)=>{
-      let cls="";
-      if(st){if(j===q.correct)cls="qoc qdis";else if(j===st.ch)cls=(st.ok?"qoc":"qow")+" qdis";else cls="qdis";}
-      return `<div class="qopt ${cls}" onclick="ansQ('${qid}',${j},${q.correct})"><div class="qltr">${String.fromCharCode(65+j)}</div><div>${o}</div></div>`;
-    }).join("");
-    const fb=st?`<div class="qfb ${st.ok?"qfbc":"qfbw"}">${st.ok?"Ratt!":"Fel."} ${q.exp}</div>`:"";
-    return `<div class="qcard ${st?(st.ok?"qc":"qw"):""}"><div class="qnum">Fraga ${i+1} - ${CAT[q.cat]?.lbl||q.cat}</div><div class="qtxt">${q.q}</div><div class="qopts">${opts}</div>${fb}</div>`;
+  const cats=["all",...new Set(QUIZ.map(q=>q.cat))];
+  document.getElementById("quiz-filters").innerHTML=cats.map(c=>`<button class="filter-btn ${c===quizCat?'active':''}" onclick="setQuizCat('${c}')">${c==="all"?"Alla":(CAT[c]?.label||c)}</button>`).join("");
+  const filtered=quizCat==="all"?QUIZ:QUIZ.filter(q=>q.cat===quizCat);
+  document.getElementById("quiz-list").innerHTML=filtered.map((q,i)=>{
+    const qid=`${i}_${quizCat}`,st=quizState[qid];
+    return `<div class="quiz-card ${st?(st.ok?"correct":"wrong"):""}">`+
+      `<div class="quiz-num">Fråga ${i+1} · ${CAT[q.cat]?.label||q.cat}</div>`+
+      `<div class="quiz-q">${q.q}</div>`+
+      `<div class="quiz-opts">${q.opts.map((o,j)=>{
+        let cls="";
+        if(st){if(j===q.correct)cls="opt-correct disabled";else if(j===st.ch&&!st.ok)cls="opt-wrong disabled";else cls="disabled";}
+        return `<div class="quiz-opt ${cls}" onclick="answerQuiz('${qid}',${j},${q.correct})"><div class="opt-letter">${String.fromCharCode(65+j)}</div><div>${o}</div></div>`;
+      }).join("")}</div>`+
+      (st?`<div class="quiz-feedback ${st.ok?"fb-correct":"fb-wrong"}">${st.ok?"✓ Rätt!":"✗ Fel."} ${q.exp}</div>`:"")+
+      `</div>`;
   }).join("");
-  updQScore();
+  updateQuizScore();
 }
 
-function setQcat(c){qcat=c;buildQuiz();}
-function ansQ(qid,chosen,correct){
-  if(qst[qid])return;
-  qst[qid]={ch:chosen,ok:chosen===correct};
-  localStorage.setItem("fp5_quiz",JSON.stringify(qst));
+function setQuizCat(c){quizCat=c;buildQuiz();}
+function answerQuiz(qid,chosen,correct){
+  if(quizState[qid])return;
+  quizState[qid]={ch:chosen,ok:chosen===correct};
+  localStorage.setItem("fp6_quiz",JSON.stringify(quizState));
   buildQuiz();
 }
-function updQScore(){
-  const filtered=qcat==="all"?QUIZ_DATA:QUIZ_DATA.filter(q=>q.cat===qcat);
-  const ans=filtered.filter((_,i)=>qst[`${i}_${qcat}`]);
-  if(!ans.length){document.getElementById("qscore").style.display="none";return;}
-  const ok=ans.filter((_,i)=>qst[`${i}_${qcat}`]?.ok).length;
-  document.getElementById("qscore").style.display="flex";
-  document.getElementById("qscore-num").textContent=`${ok} / ${ans.length}`;
-  document.getElementById("st-quiz").textContent=`${ok}/${filtered.length}`;
+function updateQuizScore(){
+  const filtered=quizCat==="all"?QUIZ:QUIZ.filter(q=>q.cat===quizCat);
+  const answered=filtered.filter((_,i)=>quizState[`${i}_${quizCat}`]);
+  if(!answered.length){document.getElementById("score-bar").style.display="none";return;}
+  const ok=answered.filter((_,i)=>quizState[`${i}_${quizCat}`]?.ok).length;
+  document.getElementById("score-bar").style.display="flex";
+  document.getElementById("score-num").textContent=`${ok} / ${answered.length}`;
+  document.getElementById("stat-quiz").textContent=`${ok}/${filtered.length}`;
 }
-function resetQuiz(){qst={};localStorage.setItem("fp5_quiz",JSON.stringify(qst));buildQuiz();}
+function resetQuiz(){quizState={};localStorage.setItem("fp6_quiz",JSON.stringify(quizState));buildQuiz();}
 
+// ═══════════════════ FAQ ═══════════════════
 function buildFaq(){
-  const cats=["all",...new Set(FAQ_DATA.map(f=>f.cat))];
-  document.getElementById("faqcats").innerHTML=cats.map(c=>`<button class="fcbtn ${c===fcat?"active":""}" onclick="setFcat('${c}')">${c==="all"?"Alla":c}</button>`).join("");
-  document.getElementById("faqlist").innerHTML=FAQ_DATA.map(f=>`<div class="fitem" data-cat="${f.cat}" data-q="${f.q.toLowerCase()}" data-a="${f.a.toLowerCase()}"><div class="fq" onclick="toggleFaq(this.parentNode)"><span>${f.q}</span><span class="fqi">&#9660;</span></div><div class="fa"><span class="ftag">${f.cat}</span><p>${f.a}</p></div></div>`).join("");
+  const cats=["all",...new Set(FAQ.map(f=>f.cat))];
+  document.getElementById("faq-cats").innerHTML=cats.map(c=>`<button class="filter-btn ${c===faqCat?'active':''}" onclick="setFaqCat('${c}')">${c==="all"?"Alla":c}</button>`).join("");
+  document.getElementById("faq-list").innerHTML=FAQ.map(f=>`<div class="faq-item" data-cat="${f.cat}" data-q="${f.q.toLowerCase()}" data-a="${f.a.toLowerCase()}"><div class="faq-q" onclick="toggleFaqItem(this.parentNode)"><span>${f.q}</span><span class="faq-chevron">▼</span></div><div class="faq-a"><span class="faq-tag">${f.cat}</span><p>${f.a}</p></div></div>`).join("");
   applyFaqFilter();
 }
-function setFcat(c){fcat=c;document.querySelectorAll(".fcbtn").forEach(b=>b.classList.toggle("active",b.textContent===(c==="all"?"Alla":c)));applyFaqFilter();}
+
+function setFaqCat(c){faqCat=c;document.querySelectorAll("#faq-cats .filter-btn").forEach(b=>b.classList.toggle("active",b.textContent===(c==="all"?"Alla":c)));applyFaqFilter();}
 function filterFaq(){applyFaqFilter();}
 function applyFaqFilter(){
-  const ql=document.getElementById("faqsrch").value.toLowerCase();
+  const ql=(document.getElementById("faq-search").value||"").toLowerCase();
   let any=false;
-  document.querySelectorAll(".fitem").forEach(el=>{
-    const ok=(fcat==="all"||el.dataset.cat===fcat)&&(!ql||el.dataset.q.includes(ql)||el.dataset.a.includes(ql));
+  document.querySelectorAll(".faq-item").forEach(el=>{
+    const ok=(faqCat==="all"||el.dataset.cat===faqCat)&&(!ql||el.dataset.q.includes(ql)||el.dataset.a.includes(ql));
     el.classList.toggle("hidden",!ok);
     if(ok)any=true;
   });
-  document.getElementById("fempty").style.display=any?"none":"";
+  document.getElementById("faq-empty").style.display=any?"none":"block";
 }
-function toggleFaq(el){const was=el.classList.contains("open");document.querySelectorAll(".fitem.open").forEach(i=>i.classList.remove("open"));if(!was)el.classList.add("open");}
-
-function buildCrit(){
-  const secs=[{k:"content",lbl:"Innehallskritik"},{k:"design",lbl:"Designkritik"}];
-  document.getElementById("critlist").innerHTML=secs.map(s=>`<div class="csec"><div class="csec-ttl">${s.lbl}</div>${CRIT[s.k].map(c=>`<div class="citem"><div class="csev c${c.sev}">${c.sev==="h"?"!":c.sev==="m"?"~":"i"}<span>${c.sev==="h"?"Hog":c.sev==="m"?"Med":"Lag"}</span></div><div><div class="cttl">${c.t}</div><div class="ctxt">${c.txt}</div><div class="cfix">${c.fix}</div></div></div>`).join("")}</div>`).join("");
+function toggleFaqItem(el){
+  const was=el.classList.contains("open");
+  document.querySelectorAll(".faq-item.open").forEach(i=>i.classList.remove("open"));
+  if(!was)el.classList.add("open");
 }
 
-buildSidebar();updSidebar();updProgress();buildGrid();buildQuiz();buildFaq();buildCrit();
+// ═══════════════════ REVIEW ═══════════════════
+function buildReview(){
+  const sections=[{key:"content",label:"Innehållskritik"},{key:"design",label:"Designkritik"}];
+  document.getElementById("review-list").innerHTML=sections.map(s=>`<div class="review-section"><div class="review-section-title">${s.label}</div>${REVIEW[s.key].map(c=>`<div class="review-item"><div class="severity sev-${c.sev==="h"?"high":c.sev==="m"?"med":"low"}">${c.sev==="h"?"!":c.sev==="m"?"~":"i"}<span>${c.sev==="h"?"Hög":c.sev==="m"?"Med":"Låg"}</span></div><div><div class="review-title">${c.t}</div><div class="review-text">${c.txt}</div><div class="review-fix">${c.fix}</div></div></div>`).join("")}</div>`).join("");
+}
+
+// ═══════════════════ INIT ═══════════════════
+buildSidebar();updateSidebar();updateProgress();buildGrid();buildQuiz();buildFaq();buildReview();
 </script>
 </body>
 </html>
