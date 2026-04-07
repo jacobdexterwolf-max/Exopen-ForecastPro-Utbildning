@@ -4,224 +4,307 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Forecast Pro – Utbildning</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
 :root{
-  --bg:#fafbfc;--card:#fff;--border:#eaedf0;--border-2:#d0d5db;
-  --text:#18202b;--text2:#526070;--text3:#94a0b0;
-  --blue:#2563eb;--blue-light:#eff6ff;--blue-dark:#1d4ed8;
-  --green:#10b981;--green-bg:#ecfdf5;
-  --amber:#f59e0b;--amber-bg:#fffbeb;
-  --red:#ef4444;--red-bg:#fef2f2;
-  --purple:#8b5cf6;--purple-bg:#f5f3ff;
-  --teal:#14b8a6;--teal-bg:#f0fdfa;
-  --navy:#0f172a;
-  --r:8px;--r-lg:12px;
-  --font:'Inter',system-ui,-apple-system,sans-serif;
-  --sidebar:260px;--header:52px;
-  --shadow:0 1px 3px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.03);
-  --shadow-md:0 4px 16px rgba(0,0,0,.06);
+  --bg:#f6f4f0;
+  --bg-warm:#eae7e0;
+  --card:#ffffff;
+  --card-hover:#fafaf8;
+  --border:#e2ddd5;
+  --border-2:#d1cbc2;
+  --text:#1a1612;
+  --text2:#5c5549;
+  --text3:#9a9289;
+  --accent:#c25b28;
+  --accent-light:#fdf3ed;
+  --accent-dark:#a34a1e;
+  --green:#2d8a5e;
+  --green-bg:#eef7f1;
+  --green-border:#b8dfc8;
+  --amber:#b8860b;
+  --amber-bg:#fdf8eb;
+  --red:#c0392b;
+  --red-bg:#fdf0ee;
+  --red-border:#e8b4ae;
+  --purple:#6c5ba7;
+  --purple-bg:#f3f1f9;
+  --teal:#1a7a6d;
+  --teal-bg:#edf7f6;
+  --navy:#1a1612;
+  --r:6px;
+  --r-lg:10px;
+  --r-xl:14px;
+  --font:'DM Sans',system-ui,sans-serif;
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --sidebar:272px;
+  --header:56px;
+  --shadow:0 1px 2px rgba(26,22,18,.04);
+  --shadow-md:0 4px 20px rgba(26,22,18,.07);
+  --shadow-lg:0 8px 40px rgba(26,22,18,.1);
+  --ease:cubic-bezier(.4,0,.2,1);
 }
+
 html{scroll-behavior:smooth}
-body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* ── HEADER ── */
-header{position:fixed;top:0;left:0;right:0;height:var(--header);background:var(--navy);display:flex;align-items:center;padding:0 20px;z-index:500;gap:16px}
-.logo{font-size:14px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
-.logo-icon{width:26px;height:26px;background:var(--blue);border-radius:6px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff}
-.logo span{opacity:.35;font-weight:400;margin-left:4px}
-nav{display:flex;gap:1px;margin-left:32px}
-nav button{padding:6px 14px;border-radius:5px;font-size:12.5px;font-weight:500;color:rgba(255,255,255,.4);cursor:pointer;border:none;background:none;font-family:var(--font);transition:.15s}
-nav button:hover{color:rgba(255,255,255,.7);background:rgba(255,255,255,.05)}
-nav button.on{color:#fff;background:rgba(255,255,255,.1)}
-.hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.prog{font-size:11px;color:rgba(255,255,255,.4);font-weight:500}
-.prog b{color:#34d399}
+header{position:fixed;top:0;left:0;right:0;height:var(--header);background:var(--navy);display:flex;align-items:center;padding:0 24px;z-index:500;gap:20px;backdrop-filter:blur(20px)}
+.logo{font-family:var(--font-display);font-size:17px;color:#fff;display:flex;align-items:center;gap:10px;letter-spacing:-.02em}
+.logo-icon{width:30px;height:30px;background:var(--accent);border-radius:8px;display:grid;place-items:center;font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;transform:rotate(-2deg)}
+.logo-sub{opacity:.3;font-family:var(--font);font-size:11px;font-weight:400;margin-left:6px;letter-spacing:.02em}
+nav{display:flex;gap:2px;margin-left:36px;background:rgba(255,255,255,.06);border-radius:8px;padding:3px}
+nav button{padding:7px 16px;border-radius:6px;font-size:12px;font-weight:500;color:rgba(255,255,255,.35);cursor:pointer;border:none;background:none;font-family:var(--font);transition:all .2s var(--ease);letter-spacing:.01em}
+nav button:hover{color:rgba(255,255,255,.65)}
+nav button.on{color:#fff;background:rgba(255,255,255,.1);font-weight:600}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.prog{font-size:11px;color:rgba(255,255,255,.35);font-weight:500;font-family:var(--font-mono);letter-spacing:.02em}
+.prog b{color:#6ee7b7}
+.prog-bar{width:80px;height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#6ee7b7,#34d399);border-radius:4px;transition:width .5s var(--ease)}
 
 /* ── SIDEBAR ── */
-aside{position:fixed;top:var(--header);left:0;bottom:0;width:var(--sidebar);background:var(--card);border-right:1px solid var(--border);overflow-y:auto;z-index:400;padding:10px 8px 24px}
-aside::-webkit-scrollbar{width:3px}aside::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:2px}
-.sb-srch{padding:4px 4px 8px;position:relative}
-.sb-srch input{width:100%;padding:7px 10px 7px 30px;border:1px solid var(--border);border-radius:var(--r);font-size:12px;outline:none;font-family:var(--font);background:var(--bg);transition:.15s}
-.sb-srch input:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(37,99,235,.1);background:#fff}
-.sb-srch::before{content:'🔍';position:absolute;left:14px;top:12px;font-size:11px;pointer-events:none}
-.sb-cat{margin-top:6px}
-.sb-cat-hdr{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:var(--r);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);cursor:pointer;transition:.1s}
+aside{position:fixed;top:var(--header);left:0;bottom:0;width:var(--sidebar);background:var(--card);border-right:1px solid var(--border);overflow-y:auto;z-index:400;padding:16px 10px 32px;transition:transform .3s var(--ease)}
+aside::-webkit-scrollbar{width:3px}
+aside::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:2px}
+.sb-srch{padding:0 4px 12px}
+.sb-srch input{width:100%;padding:9px 12px 9px 34px;border:1px solid var(--border);border-radius:8px;font-size:12px;outline:none;font-family:var(--font);background:var(--bg);transition:all .2s var(--ease);color:var(--text)}
+.sb-srch input::placeholder{color:var(--text3)}
+.sb-srch input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(194,91,40,.08);background:#fff}
+.sb-srch::before{content:'⌕';position:absolute;left:16px;top:10px;font-size:14px;pointer-events:none;color:var(--text3);font-weight:600}
+.sb-cat{margin-top:4px}
+.sb-cat-hdr{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:var(--r);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);cursor:pointer;transition:all .15s var(--ease);user-select:none}
 .sb-cat-hdr:hover{background:var(--bg)}
-.sb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sb-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 2px rgba(0,0,0,.06)}
 .sb-cat-lbl{flex:1}
-.sb-cat-n{font-size:9px;font-weight:600;color:var(--text3);padding:0 4px;background:var(--bg);border-radius:8px}
-.sb-ch{font-size:7px;color:var(--text3);transition:.2s}.sb-cat-hdr.open .sb-ch{transform:rotate(180deg)}
-.sb-items{overflow:hidden}.sb-items.shut{display:none}
-.sb-link{display:flex;align-items:center;gap:6px;padding:6px 8px 6px 12px;font-size:12.5px;color:var(--text2);cursor:pointer;border-radius:var(--r);transition:.1s;border-left:2px solid transparent;line-height:1.3}
-.sb-link:hover{background:var(--blue-light);color:var(--blue)}
-.sb-link.on{background:var(--blue-light);color:var(--blue);font-weight:600;border-left-color:var(--blue)}
-.sb-link.ok{opacity:.5}
-.sb-ref{font-size:10px;font-weight:600;color:var(--text3);min-width:36px;flex-shrink:0;font-variant-numeric:tabular-nums}
-.sb-chk{margin-left:auto;font-size:12px;color:var(--green);opacity:0;flex-shrink:0}.sb-link.ok .sb-chk{opacity:1}
-.sb-quiz{margin-top:16px;padding:0 4px}
-.sb-quiz-btn{display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--purple-bg);border:1px solid #e4d5ff;border-radius:var(--r);font-size:12.5px;font-weight:600;color:var(--purple);cursor:pointer;transition:.15s;width:100%}
-.sb-quiz-btn:hover{background:#ede5ff;border-color:var(--purple)}
+.sb-cat-n{font-size:9px;font-weight:600;color:var(--text3);padding:1px 6px;background:var(--bg);border-radius:10px;font-family:var(--font-mono)}
+.sb-ch{font-size:7px;color:var(--text3);transition:transform .25s var(--ease)}.sb-cat-hdr.open .sb-ch{transform:rotate(180deg)}
+.sb-items{overflow:hidden;transition:all .25s var(--ease)}.sb-items.shut{display:none}
+.sb-link{display:flex;align-items:center;gap:7px;padding:7px 10px 7px 14px;font-size:12.5px;color:var(--text2);cursor:pointer;border-radius:var(--r);transition:all .15s var(--ease);border-left:2px solid transparent;line-height:1.35}
+.sb-link:hover{background:var(--accent-light);color:var(--accent)}
+.sb-link.on{background:var(--accent-light);color:var(--accent);font-weight:600;border-left-color:var(--accent)}
+.sb-link.ok{color:var(--text3)}
+.sb-ref{font-size:10px;font-weight:600;color:var(--text3);min-width:38px;flex-shrink:0;font-family:var(--font-mono)}
+.sb-chk{margin-left:auto;font-size:11px;color:var(--green);opacity:0;flex-shrink:0;transition:opacity .2s}.sb-link.ok .sb-chk{opacity:1}
+.sb-quiz{margin-top:20px;padding:0 4px}
+.sb-quiz-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--purple-bg);border:1px solid #d8d0f0;border-radius:8px;font-size:12px;font-weight:600;color:var(--purple);cursor:pointer;transition:all .2s var(--ease);width:100%}
+.sb-quiz-btn:hover{background:#e8e2f6;border-color:var(--purple);transform:translateY(-1px);box-shadow:0 2px 8px rgba(108,91,167,.12)}
 
 /* ── MAIN ── */
 main{margin-left:var(--sidebar);padding-top:var(--header);min-height:100vh}
-.page{display:none;padding:32px 40px 80px;max-width:1000px;margin:0 auto}
-.page.on{display:block}
+.page{display:none;padding:36px 48px 100px;max-width:960px;margin:0 auto}
+.page.on{display:block;animation:pageIn .4s var(--ease) both}
+
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── HOME ── */
-.hero{background:var(--navy);border-radius:var(--r-lg);padding:32px;margin-bottom:28px;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;top:-60%;right:-5%;width:300px;height:300px;background:radial-gradient(circle,rgba(37,99,235,.12) 0%,transparent 70%);pointer-events:none}
-.hero h1{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.4px;position:relative}
-.hero p{color:rgba(255,255,255,.35);font-size:13px;margin-top:4px;position:relative;max-width:500px}
-.stats{display:flex;gap:10px;margin-top:20px;position:relative}
-.stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px 18px}
-.stat-v{font-size:20px;font-weight:800;color:#fff;letter-spacing:-.5px}
-.stat-l{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.05em;margin-top:1px}
-.sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin:24px 0 12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.crd{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;cursor:pointer;transition:.2s;display:flex;flex-direction:column;gap:6px}
-.crd:hover{box-shadow:var(--shadow-md);transform:translateY(-1px);border-color:var(--border-2)}
-.crd-top{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-.crd-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.crd h3{font-size:14px;font-weight:600;line-height:1.3;letter-spacing:-.1px}
-.crd-desc{font-size:12px;color:var(--text3);line-height:1.5}
-.crd-foot{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text3);margin-top:auto;padding-top:4px}
-.crd-done{background:var(--green-bg);color:var(--green);border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700}
+.hero{background:var(--navy);border-radius:var(--r-xl);padding:40px 40px 36px;margin-bottom:32px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(194,91,40,.12) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(45,138,94,.06) 0%,transparent 50%);pointer-events:none}
+.hero h1{font-family:var(--font-display);font-size:28px;font-weight:400;color:#fff;letter-spacing:-.02em;position:relative;line-height:1.2}
+.hero p{color:rgba(255,255,255,.3);font-size:13.5px;margin-top:6px;position:relative;max-width:540px;line-height:1.7}
+.stats{display:flex;gap:12px;margin-top:24px;position:relative}
+.stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px 20px;min-width:100px}
+.stat-v{font-size:24px;font-weight:700;color:#fff;letter-spacing:-.03em;font-family:var(--font-mono)}
+.stat-l{font-size:10px;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;font-weight:500}
+.sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--text3);margin:28px 0 14px;display:flex;align-items:center;gap:10px}
+.sec::after{content:'';flex:1;height:1px;background:var(--border)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.crd{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:20px 22px;cursor:pointer;transition:all .25s var(--ease);display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.crd::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .25s var(--ease)}
+.crd:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--border-2)}
+.crd:hover::before{opacity:1}
+.crd-top{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.crd-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.crd h3{font-size:14.5px;font-weight:600;line-height:1.35;letter-spacing:-.02em}
+.crd-desc{font-size:12.5px;color:var(--text3);line-height:1.55}
+.crd-foot{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text3);margin-top:auto;padding-top:6px;font-family:var(--font-mono);font-size:10px}
+.crd-done{background:var(--green-bg);color:var(--green);border-radius:10px;padding:2px 8px;font-size:10px;font-weight:700;font-family:var(--font)}
+
+/* Category accent colors on cards */
+.crd[data-cat="budget"]::before{background:var(--accent)}
+.crd[data-cat="personal"]::before{background:var(--purple)}
+.crd[data-cat="reports"]::before{background:var(--green)}
+.crd[data-cat="prognos"]::before{background:var(--teal)}
+.crd[data-cat="admin"]::before{background:var(--amber)}
 
 /* ── READER ── */
-.rdr-crumb{font-size:12px;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:5px}
-.rdr-crumb a{color:var(--blue);cursor:pointer;text-decoration:none;font-weight:500}
-.rdr-crumb a:hover{text-decoration:underline}
-.lesson-bar{display:flex;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:10px 16px;margin-bottom:14px;gap:8px}
-.lesson-bar-btn{padding:6px 12px;border-radius:var(--r);font-size:11.5px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text2);font-family:var(--font);transition:.15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
-.lesson-bar-btn:hover:not(:disabled){background:var(--blue-light);color:var(--blue);border-color:var(--blue)}
-.lesson-bar-btn:disabled{opacity:.2;cursor:default}
+.rdr-crumb{font-size:12px;color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.rdr-crumb a{color:var(--accent);cursor:pointer;text-decoration:none;font-weight:500;transition:color .15s}
+.rdr-crumb a:hover{color:var(--accent-dark)}
+.lesson-bar{display:flex;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:10px 14px;margin-bottom:16px;gap:10px}
+.lesson-bar-btn{padding:7px 14px;border-radius:var(--r);font-size:11px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text2);font-family:var(--font);transition:all .2s var(--ease);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.lesson-bar-btn:hover:not(:disabled){background:var(--accent-light);color:var(--accent);border-color:var(--accent)}
+.lesson-bar-btn:disabled{opacity:.15;cursor:default}
 .lesson-bar-mid{flex:1;text-align:center;min-width:0}
-.lesson-bar-title{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lesson-bar-pos{font-size:10px;color:var(--text3);margin-top:1px}
-.rdr-title{font-size:20px;font-weight:700;letter-spacing:-.3px;margin-bottom:4px}
-.rdr-badge{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:4px;color:#fff;margin-bottom:6px}
+.lesson-bar-title{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:-.01em}
+.lesson-bar-pos{font-size:10px;color:var(--text3);margin-top:2px;font-family:var(--font-mono)}
+.rdr-title{font-family:var(--font-display);font-size:22px;font-weight:400;letter-spacing:-.02em;margin-bottom:4px;line-height:1.25}
+.rdr-badge{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 10px;border-radius:20px;color:#fff;margin-bottom:8px}
 
-/* PDF VIEWER - clean centered design */
-.pdf-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);margin-top:16px}
-.pdf-head{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg)}
-.pdf-head-name{font-size:13px;font-weight:600;color:var(--text)}
-.pdf-head-file{font-size:10.5px;color:var(--text3);margin-top:1px}
-.pdf-canvas-wrap{width:100%;min-height:70vh;display:flex;flex-direction:column;align-items:center;background:#f4f5f7;padding:24px 0;gap:16px;overflow-y:auto;max-height:80vh}
-.pdf-canvas-wrap canvas{max-width:92%;box-shadow:0 2px 12px rgba(0,0,0,.1);border-radius:2px;background:#fff}
-.pdf-foot{padding:12px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.pdf-dots{display:flex;gap:4px;flex-wrap:wrap}
-.dt{width:26px;height:26px;border-radius:50%;border:2px solid var(--border);display:grid;place-items:center;font-size:10px;font-weight:600;color:var(--text3);cursor:pointer;transition:.15s;font-variant-numeric:tabular-nums}
-.dt:hover:not(.dt-on){border-color:var(--blue);color:var(--blue)}
-.dt-on{border-color:var(--blue);background:var(--blue);color:#fff}
+/* ── PDF VIEWER ── */
+.pdf-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow);margin-top:18px}
+.pdf-head{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg)}
+.pdf-head-name{font-size:13px;font-weight:600;color:var(--text);letter-spacing:-.01em}
+.pdf-head-file{font-size:10px;color:var(--text3);margin-top:2px;font-family:var(--font-mono)}
+.pdf-canvas-wrap{width:100%;min-height:70vh;display:flex;flex-direction:column;align-items:center;background:#edebe7;padding:28px 0;gap:20px;overflow-y:auto;max-height:80vh}
+.pdf-canvas-wrap canvas{max-width:92%;box-shadow:0 2px 16px rgba(26,22,18,.1);border-radius:3px;background:#fff}
+.pdf-foot{padding:14px 18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.pdf-dots{display:flex;gap:5px;flex-wrap:wrap}
+.dt{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:grid;place-items:center;font-size:10px;font-weight:600;color:var(--text3);cursor:pointer;transition:all .2s var(--ease);font-family:var(--font-mono)}
+.dt:hover:not(.dt-on){border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+.dt-on{border-color:var(--accent);background:var(--accent);color:#fff}
 .dt-ok{border-color:var(--green);background:var(--green);color:#fff}
-.pdf-ctr{font-size:11px;color:var(--text3);white-space:nowrap}
-.pdf-btns{display:flex;gap:6px}
-.btn{padding:7px 16px;border-radius:var(--r);font-size:12.5px;font-weight:600;border:none;cursor:pointer;font-family:var(--font);transition:.15s}
+.pdf-ctr{font-size:11px;color:var(--text3);white-space:nowrap;font-family:var(--font-mono)}
+.pdf-btns{display:flex;gap:8px}
+.btn{padding:8px 18px;border-radius:8px;font-size:12px;font-weight:600;border:none;cursor:pointer;font-family:var(--font);transition:all .2s var(--ease);letter-spacing:.01em}
 .btn-o{background:var(--bg);color:var(--text2);border:1px solid var(--border)}
 .btn-o:hover{background:var(--border);color:var(--text)}
-.btn-b{background:var(--blue);color:#fff}.btn-b:hover{background:var(--blue-dark)}
-.btn-g{background:var(--green);color:#fff}.btn-g:hover{background:#059669}
-.btn:disabled{opacity:.2;cursor:default;pointer-events:none}
-.done-box{background:var(--green-bg);border:1px solid #a7f3d0;border-radius:var(--r-lg);padding:16px 20px;display:flex;align-items:center;gap:12px;margin-top:14px;font-size:13px;color:#065f46}
-.done-box strong{display:block;font-size:14px}
-.done-box a{color:var(--blue);cursor:pointer;font-weight:600;text-decoration:underline}
+.btn-b{background:var(--accent);color:#fff}.btn-b:hover{background:var(--accent-dark);transform:translateY(-1px);box-shadow:0 2px 8px rgba(194,91,40,.2)}
+.btn-g{background:var(--green);color:#fff}.btn-g:hover{background:#247a52;transform:translateY(-1px);box-shadow:0 2px 8px rgba(45,138,94,.2)}
+.btn:disabled{opacity:.15;cursor:default;pointer-events:none}
+.done-box{background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r-xl);padding:18px 22px;display:flex;align-items:center;gap:14px;margin-top:16px;font-size:13px;color:#1a5c3a;animation:slideUp .3s var(--ease) both}
+.done-box strong{display:block;font-size:14px;letter-spacing:-.01em}
+.done-box a{color:var(--accent);cursor:pointer;font-weight:600;text-decoration:none;border-bottom:1px solid var(--accent);transition:all .15s}
+.done-box a:hover{color:var(--accent-dark)}
 
-/* ── QUIZ ── */
-.q-hero{background:linear-gradient(135deg,var(--navy),#1e293b);border-radius:var(--r-lg);padding:28px 32px;margin-bottom:22px}
-.q-hero h2{font-size:20px;font-weight:800;color:#fff;letter-spacing:-.3px}
-.q-hero p{color:rgba(255,255,255,.35);font-size:12.5px;margin-top:3px}
-.flts{display:flex;gap:5px;margin-bottom:18px;flex-wrap:wrap}
-.flt{padding:5px 13px;border-radius:20px;font-size:11.5px;font-weight:600;border:1px solid var(--border);background:var(--card);color:var(--text3);cursor:pointer;transition:.15s;font-family:var(--font)}
-.flt:hover,.flt.on{background:var(--blue);color:#fff;border-color:var(--blue)}
-.sc-bar{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:14px}
-.sc-n{font-size:26px;font-weight:800;color:var(--blue);letter-spacing:-1px}
-.sc-l{font-size:11px;color:var(--text3)}
-.qc{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;margin-bottom:10px}
-.qc.qcok{border-color:#a7f3d0;background:var(--green-bg)}.qc.qcno{border-color:#fca5a5;background:var(--red-bg)}
-.qc-n{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:8px}
-.qc-q{font-size:15px;font-weight:600;margin-bottom:16px;line-height:1.5}
-.qc-opts{display:flex;flex-direction:column;gap:6px}
-.qo{display:flex;align-items:flex-start;gap:8px;padding:10px 13px;border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;transition:.15s;font-size:13px;line-height:1.45;background:var(--bg)}
-.qo:hover:not(.qd){border-color:var(--blue);background:var(--blue-light)}
-.qo.qy{border-color:var(--green);background:var(--green-bg)}.qo.qn{border-color:var(--red);background:var(--red-bg)}.qo.qd{cursor:default}
-.qo-l{width:20px;height:20px;border-radius:4px;background:var(--border);display:grid;place-items:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
-.qfb{margin-top:12px;padding:12px;border-radius:var(--r);font-size:12.5px;line-height:1.6}
-.qfb-y{background:var(--green-bg);color:#065f46;border:1px solid #a7f3d0}.qfb-n{background:var(--red-bg);color:#991b1b;border:1px solid #fca5a5}
-
-/* ── FAQ ── */
-.faq-hero{background:var(--navy);border-radius:var(--r-lg);padding:28px 32px;margin-bottom:22px}
-.faq-hero h2{font-size:20px;font-weight:800;color:#fff}.faq-hero p{color:rgba(255,255,255,.35);font-size:12.5px;margin-top:3px}
-.faq-s{margin-bottom:16px;position:relative}
-.faq-s input{width:100%;padding:10px 14px 10px 36px;border:1px solid var(--border);border-radius:var(--r-lg);font-size:13px;outline:none;font-family:var(--font);background:var(--card);transition:.15s}
-.faq-s input:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(37,99,235,.1)}
-.faq-s::before{content:'🔍';position:absolute;left:12px;top:10px;font-size:13px;pointer-events:none}
-.fi{border:1px solid var(--border);border-radius:var(--r-lg);background:var(--card);margin-bottom:6px;overflow:hidden}.fi.hid{display:none}
-.fi-q{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;font-size:14px;font-weight:600;transition:.1s;gap:10px;line-height:1.4}
-.fi-q:hover{background:var(--bg)}
-.fi-ch{font-size:9px;color:var(--text3);transition:.2s;flex-shrink:0}.fi.open .fi-ch{transform:rotate(180deg)}
-.fi-a{padding:0 18px;max-height:0;overflow:hidden;transition:.3s;font-size:13px;color:var(--text2);line-height:1.7}
-.fi.open .fi-a{max-height:400px;padding:0 18px 16px}
-.fi-tag{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;border-radius:4px;background:var(--bg);color:var(--text3);margin-bottom:6px}
-.faq-empty{text-align:center;padding:40px;color:var(--text3);font-size:13px}
-
+@keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── SUMMARY CARDS ── */
-.sum-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px 24px;margin-bottom:14px}
-.sum-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.sum-text{font-size:14px;color:var(--text);line-height:1.6;margin-bottom:14px}
-.sum-section{margin-bottom:12px}
-.sum-section h4{font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.sum-section h4 .emoji{font-size:14px}
-.sum-list{list-style:none;padding:0}
-.sum-list li{font-size:13px;color:var(--text2);line-height:1.6;padding:3px 0 3px 18px;position:relative}
-.sum-list li::before{content:'';position:absolute;left:4px;top:11px;width:5px;height:5px;border-radius:50%;background:var(--blue)}
-.sum-list.warn li::before{background:var(--amber)}
-.intro-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;margin-bottom:12px}
-.intro-box h3{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-.2px}
-.intro-box p{font-size:13.5px;color:var(--text2);line-height:1.65}
-.intro-steps{list-style:none;padding:0;margin-top:8px}
-.intro-steps li{font-size:13.5px;color:var(--text2);padding:4px 0;display:flex;align-items:center;gap:8px}
-.intro-steps li .step-n{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0}
-.sum-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0;font-size:12px;font-weight:600;color:var(--blue);transition:.15s;user-select:none}
-.sum-toggle:hover{color:var(--blue-dark)}
-.sum-toggle .arrow{transition:.2s;font-size:8px}
+.sum-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:22px 24px;margin-bottom:14px}
+.sum-text{font-size:14.5px;color:var(--text);line-height:1.65;margin-bottom:14px}
+.sum-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 0;font-size:12px;font-weight:600;color:var(--accent);transition:all .15s var(--ease);user-select:none;border-top:1px solid var(--border);margin-top:4px}
+.sum-toggle:hover{color:var(--accent-dark)}
+.sum-toggle .arrow{transition:transform .25s var(--ease);font-size:8px}
 .sum-toggle.open .arrow{transform:rotate(180deg)}
-.sum-body{overflow:hidden;transition:max-height .3s ease;max-height:0}
+.sum-body{overflow:hidden;transition:max-height .35s var(--ease);max-height:0}
 .sum-body.open{max-height:2000px}
+.sum-section{margin-bottom:14px;margin-top:14px}
+.sum-section h4{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:7px;text-transform:uppercase;letter-spacing:.06em}
+.sum-list{list-style:none;padding:0}
+.sum-list li{font-size:13px;color:var(--text2);line-height:1.65;padding:4px 0 4px 20px;position:relative}
+.sum-list li::before{content:'';position:absolute;left:5px;top:12px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.sum-list.warn li::before{background:var(--amber)}
+
+/* ── INTRO BOXES ── */
+.intro-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;margin-bottom:12px;transition:all .2s var(--ease)}
+.intro-box:hover{box-shadow:var(--shadow)}
+.intro-box h3{font-family:var(--font-display);font-size:16px;font-weight:400;margin-bottom:8px;letter-spacing:-.01em}
+.intro-box p{font-size:13.5px;color:var(--text2);line-height:1.7}
+.intro-steps{list-style:none;padding:0;margin-top:10px}
+.intro-steps li{font-size:13.5px;color:var(--text2);padding:5px 0;display:flex;align-items:center;gap:10px}
+.intro-steps li .step-n{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;flex-shrink:0;font-family:var(--font-mono)}
+
+/* ── QUIZ ── */
+.q-hero{background:var(--navy);border-radius:var(--r-xl);padding:36px 40px;margin-bottom:24px;position:relative;overflow:hidden}
+.q-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 90% 30%,rgba(108,91,167,.15) 0%,transparent 60%);pointer-events:none}
+.q-hero h2{font-family:var(--font-display);font-size:22px;font-weight:400;color:#fff;position:relative}
+.q-hero p{color:rgba(255,255,255,.3);font-size:12.5px;margin-top:4px;position:relative}
+.flts{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.flt{padding:6px 15px;border-radius:20px;font-size:11.5px;font-weight:600;border:1px solid var(--border);background:var(--card);color:var(--text3);cursor:pointer;transition:all .2s var(--ease);font-family:var(--font)}
+.flt:hover{border-color:var(--accent);color:var(--accent)}
+.flt.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.sc-bar{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px}
+.sc-n{font-size:28px;font-weight:700;color:var(--accent);letter-spacing:-.03em;font-family:var(--font-mono)}
+.sc-l{font-size:11px;color:var(--text3)}
+.qc{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;margin-bottom:12px;transition:all .3s var(--ease)}
+.qc.qcok{border-color:var(--green-border);background:var(--green-bg)}
+.qc.qcno{border-color:var(--red-border);background:var(--red-bg)}
+.qc-n{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:10px;font-family:var(--font-mono)}
+.qc-q{font-size:15px;font-weight:600;margin-bottom:18px;line-height:1.55;letter-spacing:-.01em}
+.qc-opts{display:flex;flex-direction:column;gap:7px}
+.qo{display:flex;align-items:flex-start;gap:10px;padding:12px 15px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s var(--ease);font-size:13px;line-height:1.5;background:var(--bg)}
+.qo:hover:not(.qd){border-color:var(--accent);background:var(--accent-light);transform:translateX(2px)}
+.qo.qy{border-color:var(--green);background:var(--green-bg)}.qo.qn{border-color:var(--red);background:var(--red-bg)}.qo.qd{cursor:default}
+.qo-l{width:22px;height:22px;border-radius:5px;background:var(--border);display:grid;place-items:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;font-family:var(--font-mono)}
+.qfb{margin-top:14px;padding:14px;border-radius:8px;font-size:12.5px;line-height:1.65}
+.qfb-y{background:var(--green-bg);color:#1a5c3a;border:1px solid var(--green-border)}
+.qfb-n{background:var(--red-bg);color:#8b1a10;border:1px solid var(--red-border)}
+
+/* ── FAQ ── */
+.faq-hero{background:var(--navy);border-radius:var(--r-xl);padding:36px 40px;margin-bottom:24px;position:relative;overflow:hidden}
+.faq-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 10% 80%,rgba(26,122,109,.12) 0%,transparent 60%);pointer-events:none}
+.faq-hero h2{font-family:var(--font-display);font-size:22px;font-weight:400;color:#fff;position:relative}
+.faq-hero p{color:rgba(255,255,255,.3);font-size:12.5px;margin-top:4px;position:relative}
+.faq-s{margin-bottom:18px;position:relative}
+.faq-s input{width:100%;padding:12px 16px 12px 40px;border:1px solid var(--border);border-radius:var(--r-xl);font-size:13px;outline:none;font-family:var(--font);background:var(--card);transition:all .2s var(--ease);color:var(--text)}
+.faq-s input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(194,91,40,.08)}
+.faq-s::before{content:'⌕';position:absolute;left:14px;top:12px;font-size:15px;pointer-events:none;color:var(--text3);font-weight:600}
+.fi{border:1px solid var(--border);border-radius:var(--r-xl);background:var(--card);margin-bottom:8px;overflow:hidden;transition:all .2s var(--ease)}.fi.hid{display:none}
+.fi:hover{box-shadow:var(--shadow)}
+.fi-q{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;font-size:14px;font-weight:600;transition:all .15s var(--ease);gap:12px;line-height:1.45;letter-spacing:-.01em}
+.fi-q:hover{background:var(--bg)}
+.fi-ch{font-size:8px;color:var(--text3);transition:transform .25s var(--ease);flex-shrink:0}.fi.open .fi-ch{transform:rotate(180deg)}
+.fi-a{padding:0 20px;max-height:0;overflow:hidden;transition:all .35s var(--ease);font-size:13.5px;color:var(--text2);line-height:1.7}
+.fi.open .fi-a{max-height:400px;padding:0 20px 18px}
+.fi-tag{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 8px;border-radius:20px;background:var(--bg);color:var(--text3);margin-bottom:8px;font-family:var(--font-mono)}
+.faq-empty{text-align:center;padding:48px;color:var(--text3);font-size:13px}
 
 /* ── REVIEW ── */
-.rev-hero{background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:var(--r-lg);padding:28px 32px;margin-bottom:22px}
-.rev-hero h2{font-size:20px;font-weight:800;color:#fff}.rev-hero p{color:rgba(255,255,255,.35);font-size:12.5px;margin-top:3px}
-.rev-sec{margin-bottom:24px}
-.rev-sec-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-.rev-i{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;margin-bottom:6px;display:flex;gap:12px}
-.rev-sev{flex-shrink:0;width:40px;height:40px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:8px;font-weight:800;text-transform:uppercase;gap:1px}
+.rev-hero{background:var(--navy);border-radius:var(--r-xl);padding:36px 40px;margin-bottom:24px;position:relative;overflow:hidden}
+.rev-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(184,134,11,.1) 0%,transparent 60%);pointer-events:none}
+.rev-hero h2{font-family:var(--font-display);font-size:22px;font-weight:400;color:#fff;position:relative}
+.rev-hero p{color:rgba(255,255,255,.3);font-size:12.5px;margin-top:4px;position:relative}
+.rev-sec{margin-bottom:28px}
+.rev-sec-t{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--text3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.rev-sec-t::after{content:'';flex:1;height:1px;background:var(--border)}
+.rev-i{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:18px 20px;margin-bottom:8px;display:flex;gap:14px;transition:all .2s var(--ease)}
+.rev-i:hover{box-shadow:var(--shadow)}
+.rev-sev{flex-shrink:0;width:42px;height:42px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:8px;font-weight:800;text-transform:uppercase;gap:1px;letter-spacing:.04em}
 .rev-h{background:var(--red-bg);color:var(--red)}.rev-m{background:var(--amber-bg);color:var(--amber)}.rev-l{background:var(--green-bg);color:var(--green)}
-.rev-t{font-size:13px;font-weight:700;margin-bottom:2px}
-.rev-txt{font-size:12px;color:var(--text2);line-height:1.5}.rev-fix{font-size:11px;color:var(--blue);margin-top:4px;font-weight:500}
+.rev-t{font-size:13.5px;font-weight:700;margin-bottom:3px;letter-spacing:-.01em}
+.rev-txt{font-size:12.5px;color:var(--text2);line-height:1.55}
+.rev-fix{font-size:11.5px;color:var(--accent);margin-top:5px;font-weight:600}
 
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.page.on{animation:fadeIn .3s ease}
-@media(max-width:800px){aside{display:none}main{margin-left:0}.page{padding:20px 16px 60px}.grid{grid-template-columns:1fr}.lesson-bar{flex-direction:column}.lesson-bar-btn{max-width:100%;width:100%;text-align:center}}
+/* ── MOBILE ── */
+@media(max-width:860px){
+  aside{transform:translateX(-100%)}
+  aside.open{transform:translateX(0);box-shadow:var(--shadow-lg)}
+  main{margin-left:0}
+  .page{padding:24px 18px 70px}
+  .grid{grid-template-columns:1fr}
+  .lesson-bar{flex-direction:column;gap:8px}
+  .lesson-bar-btn{max-width:100%;width:100%;text-align:center}
+  .hero{padding:28px 24px}
+  .hero h1{font-size:22px}
+  .stats{flex-wrap:wrap}
+  .mob-toggle{display:block!important}
+}
+.mob-toggle{display:none;position:fixed;bottom:20px;left:20px;z-index:600;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;border:none;font-size:18px;cursor:pointer;box-shadow:var(--shadow-lg);transition:all .2s var(--ease)}
+.mob-toggle:hover{transform:scale(1.05)}
+
+/* ── SCROLLBAR GLOBAL ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
 </style>
 </head>
 <body>
+
 <header>
-  <div class="logo"><div class="logo-icon">FP</div>Forecast Pro<span>· Utbildning</span></div>
+  <div class="logo"><div class="logo-icon">FP</div>Forecast Pro<span class="logo-sub">Utbildning</span></div>
   <nav>
     <button class="on" onclick="go('home',this)">Start</button>
     <button onclick="go('quiz',this)">Quiz</button>
     <button onclick="go('faq',this)">FAQ</button>
     <button onclick="go('review',this)">Granskning</button>
   </nav>
-  <div class="hdr-right"><div class="prog" id="prog">Klar: <b>0</b> / 18</div></div>
+  <div class="hdr-right">
+    <div class="prog" id="prog">
+      <span>Klar: <b>0</b> / 18</span>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+  </div>
 </header>
 
+<button class="mob-toggle" onclick="document.querySelector('aside').classList.toggle('open')">☰</button>
+
 <aside>
-  <div class="sb-srch"><input id="sb-q" placeholder="Sök mallnr eller avsnitt (1.01, 3.10…)" oninput="filterSb()"/></div>
+  <div class="sb-srch"><input id="sb-q" placeholder="Sök mallnr eller avsnitt…" oninput="filterSb()"/></div>
   <div id="sb"></div>
   <div class="sb-quiz"><button class="sb-quiz-btn" onclick="go('quiz')">🎯 Quiz – Testa dig själv</button></div>
 </aside>
@@ -310,7 +393,7 @@ const L={
   "a-drl":{c:"admin",ref:"—",t:"Drill Down – Fördjupning",d:"Borra ner till transaktionsnivå i rapporter.",p:["pdfs/Drill Down.pdf"]},
 };
 const IDS=Object.keys(L);
-const C={budget:{l:"Budget",col:"#2563eb"},personal:{l:"Personal & Drivare",col:"#8b5cf6"},reports:{l:"Rapporter",col:"#10b981"},prognos:{l:"Prognos",col:"#14b8a6"},admin:{l:"Administration",col:"#f59e0b"}};
+const C={budget:{l:"Budget",col:"#c25b28"},personal:{l:"Personal & Drivare",col:"#6c5ba7"},reports:{l:"Rapporter",col:"#2d8a5e"},prognos:{l:"Prognos",col:"#1a7a6d"},admin:{l:"Administration",col:"#b8860b"}};
 
 const QZ=[
   {c:"budget",q:"Vad betyder 'Dölj version' (värde 1)?",o:["Versionen raderas","Versionen låses för all hantering","Döljs bara i rapporter","Kan inte kopieras"],a:1,e:"1 = Låst, 0 = Öppen. Stängs helt."},
@@ -355,15 +438,25 @@ const FAQ=[
 
 const REV={content:[{s:"h",t:"PDF-format begränsar inlärning",x:"Statiska bilder ger ingen interaktivitet.",f:"→ Interaktiva guider eller video"},{s:"h",t:"Ingen teori → praktik koppling",x:"Saknar övningar.",f:"→ Scenariobaserade övningar"},{s:"m",t:"Quiz ojämn täckning",x:"Vissa ämnen saknas.",f:"→ 2–3 frågor per avsnitt"},{s:"l",t:"Färgkoder upprepas",x:"Samma info i varje PDF.",f:"→ Samla i intro"}],design:[{s:"h",t:"PDF-rendering varierar",x:"Olika beteende i olika webbläsare.",f:"→ Använd pdf.js (fixat i denna version!)"},{s:"m",t:"Ingen mobilvy",x:"Dåligt på små skärmar.",f:"→ Responsiv design (fixat!)"},{s:"l",t:"Ytlig progress-tracking",x:"Bara klar/ej klar.",f:"→ Tidsestimat per avsnitt"}]};
 
+const INTRO = {"title": "Innan du börjar", "sections": [{"heading": "Så fungerar Forecast Pro", "text": "Forecast Pro är Exopens budgeterings- och prognosverktyg som bygger ovanpå Microsoft Excel. Du arbetar i Excel-mallar som hämtar och sparar data via Exopens menyfält. Flödet är alltid: öppna en mall → filtrera i Selections → Load Data → arbeta → Store Data."}, {"heading": "Selections – din startpunkt i varje mall", "text": "Varje mall börjar med att du öppnar Selections via Exopens menyfält i Excel. Här väljer du version, bolag, kostnadsställe och andra filter. Alla fält måste fyllas i innan du klickar Load Data. Detta gäller i ALLA mallar – register, inmatning och rapporter."}, {"heading": "Färgkoderna – lär dig dessa tre", "text": "Mörkgrå celler = ID-nyckel, går inte att ändra. Ljusgrå celler = redigerbart fält där du skriver in data. Vita celler = rullista med fördefinierade val. Dessa färgkoder gäller genom hela systemet."}, {"heading": "Store Data – så sparar du", "text": "När du är klar med ändringar klickar du Store Data i Exopens verktygsmeny. Om du ser en varningstext kan du inte spara förrän felet är åtgärdat. Varningen visas till höger om den felaktiga raden."}, {"heading": "Det övergripande flödet", "steps": ["Sätt upp register (versioner, bolag, konton, kontomallar)", "Mata in budget/prognos (helår → månad)", "Valfritt: Personal-modul och Drivare", "Rapportera och följ upp", "Administration (kopiera, radera, felsök)"]}]};
 
-const INTRO = {"title": "Innan du börjar", "sections": [{"heading": "Så fungerar Forecast Pro", "text": "Forecast Pro är Exopens budgeterings- och prognosverktyg som bygger ovanpå Microsoft Excel. Du arbetar i Excel-mallar som hämtar och sparar data via Exopens menyfält. Flödet är alltid: öppna en mall → filtrera i Selections → Load Data → arbeta → Store Data."}, {"heading": "Selections – din startpunkt i varje mall", "text": "Varje mall börjar med att du öppnar Selections via Exopens menyfält i Excel. Här väljer du version, bolag, kostnadsställe och andra filter. Alla fält måste fyllas i innan du klickar Load Data. Detta gäller i ALLA mallar – register, inmatning och rapporter."}, {"heading": "Färgkoderna – lär dig dessa tre", "text": "Mörkgrå celler = ID-nyckel, går inte att ändra. Ljusgrå celler = redigerbart fält där du skriver in data. Vita celler = rullista med fördefinierade val. Dessa färgkoder gäller genom hela systemet."}, {"heading": "Store Data – så sparar du", "text": "När du är klar med ändringar klickar du Store Data i Exopens verktygsmeny. Om du ser en varningstext kan du inte spara förrän felet är åtgärdat. Varningen visas till höger om den felaktiga raden."}, {"heading": "Det övergripande flödet", "steps": ["1. Sätt upp register (versioner, bolag, konton, kontomallar)", "2. Mata in budget/prognos (helår → månad)", "3. Valfritt: Personal-modul och Drivare", "4. Rapportera och följ upp", "5. Administration (kopiera, radera, felsök)"]}]};
-const SUMMARIES = {"b-ver": {"summary": "Här skapar du grunden – dina budget- och prognosversioner samt kontomallar som styr vilka konton som visas vid inmatning.", "keyPoints": ["Version Typ B = Budget (allt budgeterat), Typ P = Prognos (mix utfall + prognos)", "Räkenskapsår anges i format yyyymm (t.ex. 202201 = jan 2022)", "Upp till 3 jämförelseversioner kan kopplas och visas automatiskt i rapporter", "Dölj version = 1 låser versionen helt – den kan inte ändras, bara raderas"], "pitfalls": ["Du kan INTE radera en version här – det görs via Administration → Radera version", "Kontomallen styr vad som syns vid inmatning – se till att den är korrekt innan du börjar mata in"]}, "b-bol": {"summary": "Konfigurera organisationsstrukturen: vilka bolag, kostnadsställen och valutor som ska finnas i Forecast Pro.", "keyPoints": ["Bolags-ID MÅSTE matcha ID:t i affärssystemet – annars hämtas inget utfall", "Kostnadsställegrupper skapar mellannivåer för aggregerad uppföljning", "Varje kostnadsställe knyts till en kontomall som styr vilka konton som visas", "Budgetansvarig kan anges per kostnadsställe (valfritt fält)"], "pitfalls": ["Fel ID = inget utfall. Dubbelkolla alltid mot affärssystemet", "Bolag raderas INTE i denna mall utan via Administration → Radera bolag"]}, "b-kto": {"summary": "Ställ in kontoplanen: periodiseringsnycklar, kontogrupper, konton och hur de grupperas i kontomallar.", "keyPoints": ["Periodiseringsnycklar styr hur helårsbelopp fördelas per månad (måste summera till 100%)", "Du kan generera periodiseringsnycklar automatiskt baserat på historiskt utfall", "Kontoadministration kopplar ihop konton med kontogrupper och kontomallar", "Grupperade utfallskonton slår ihop flera redovisningskonton till en rad"], "pitfalls": ["Nya konton som sparas i Register – Konto måste manuellt läggas till i kontomallarna via Kontoadministration", "Alla aktiva konton från affärssystemet bör sparas in – annars stämmer inte rapporterna med verkligheten"]}, "b-hel": {"summary": "Här matar du in budgetens totalbelopp per konto och år. Detta är den huvudsakliga inmatningsvyn.", "keyPoints": ["Du matar in totalbelopp – periodfördelningen sker automatiskt via periodiseringsnyckeln", "Poster med [Låst] och [Personal]/[Drivare] genereras automatiskt – ändra dessa i respektive modul", "Utfall och differens visas bredvid inmatningen för enkel jämförelse", "Utfall R12 visar rullande 12 månader fram till budgetperiodens start"], "pitfalls": ["Intäkter = positiva (+), kostnader = negativa (−). Fel tecken ger felaktiga summeringar", "Klar-markering görs via rullista – sammanställs i Processöversikt (3.05)"]}, "b-man": {"summary": "Granska och justera hur helårsbeloppen fördelats per månad. Du kan också mata in belopp direkt på periodnivå.", "keyPoints": ["Visar hur helårsbelopp fördelats enligt periodiseringsnyckeln", "Du kan överskriva enskilda månadsbelopp manuellt", "Vid versioner med flera kalenderår bearbetas ett år i taget", "Kolumnen 'Föreslagen ny helårsbudget' visar vad som sparas om du ändrar"], "pitfalls": ["Manuella ändringar här överskriver periodiseringsnyckeln för berörda rader", "Poster märkta [Låst] kan inte ändras här"]}, "p-par": {"summary": "Konfigurera personalparametrar: tjänstetyper, sociala avgifter, semesteruttag och förmåner. Behövs bara om Personal-modulen ska användas.", "keyPoints": ["Tre tjänstetyper: KT (kollektiv timlön), KM (kollektiv månadslön), TM (tjänsteman månadslön)", "Sociala avgifter och särskild löneskatt pension (SLP) konfigureras här", "Semesteruttag anges som procent per månad", "Förmåner: namn + konto = belopp i budget. Bara namn = enbart sociala avgifter"], "pitfalls": ["Denna mall behöver BARA fyllas i om Personal-modulen ska användas", "Glöm inte att summera semesteruttag till rätt totalprocent"]}, "p-per": {"summary": "Mata in individuella anställda med personuppgifter och löneinformation. Systemet beräknar personalkostnader automatiskt.", "keyPoints": ["Varje person får Personal-ID, namn, födelseår, personaltyp och sysselsättningsgrad", "Lön och förmåner matas in per person – kostnaden beräknas automatiskt inkl. sociala avgifter", "Genererade belopp visas som [Låst] [Personal] i Konto helår (2.01)", "Lönetyp väljs redan i Selections-rutan"], "pitfalls": ["Vill du ändra en personalkostnad? Gör det HÄR, inte i Konto helår där posten är låst", "Personaltypen (KT/KM/TM) måste matcha det som konfigurerades i Personalparametrar"]}, "p-dri": {"summary": "Fördela kostnader med hjälp av drivare. Skapa drivargrupper, definiera procentuell fördelning per konto, och mata in belopp per aktivitet eller produkt.", "keyPoints": ["Två drivartyper: Aktivitet och Produkt", "Fördelning Konto (1.21): Procentuell fördelning av kostnader per konto och drivargrupp", "Fördelning Produkt (1.22): Definiera styckkostnad per produkt och drivargrupp", "Inmatning Aktivitet (2.21): Mata in belopp per aktivitet och period", "Inmatning Produkt (2.22): Mata in antal per produkt och period"], "pitfalls": ["Procentfördelningen per konto måste summera korrekt", "Belopp genererade av drivare visas som [Låst] [Drivare] i Konto helår"]}, "r-kto": {"summary": "Rapporter som speglar inmatningen i Konto helår och månad. Visar budget/prognos med utfall och jämförelseversioner.", "keyPoints": ["Rapport helår = totalbelopp, Rapport månad = uppdelat per period", "Kontouppsättningen styrs av kontomallen kopplad till kostnadsstället", "Upp till 3 jämförelseversioner visas automatiskt", "Utfallskolumnen visar föregående år vid budget, eller budgetår -1 vid prognos"], "pitfalls": ["Intäkter MÅSTE vara positiva (+) och kostnader negativa (−) – annars blir summorna fel", "Drill Down fungerar här – markera en cell och klicka Drill Down i menyn"]}, "r-res": {"summary": "Resultaträkning som jämför verkligt utfall med budget/prognos. Visar perioden, ackumulerat och helår.", "keyPoints": ["Tre sektioner: Perioden (vald slutperiod), Ackumulerat (start → slut), Helår (12 månader)", "Du väljer start- och slutperiod fritt i Selections", "Kontomall kan väljas separat i denna rapport", "Visar avvikelser mellan utfall och budget/prognos"], "pitfalls": ["Kontomallen som väljs i Selections styr kolumnsektionerna – välj rätt mall", "Kontrollera att start- och slutperiod matchar det du vill jämföra"]}, "r-ovs": {"summary": "Översiktsrapporter som visar alla kostnadsställen eller projekt sida vid sida med belopp per konto.", "keyPoints": ["KST-översikt: Alla kostnadsställen som kolumner, kontostruktur som rader", "Projektöversikt: Alla projekt som kolumner, kontostruktur som rader", "Bra för att snabbt jämföra avdelningar eller projekt mot varandra"], "pitfalls": ["Kontomallen som används beror på om du valt ett specifikt KST/projekt eller [Alla]", "Vid [Alla] används kontomallen kopplad till bolaget"]}, "r-per": {"summary": "Personalrapporter som visar detaljerade personalkostnader per person och FTE-översikt per kostnadsställe.", "keyPoints": ["Detaljerad rapport: Visar kostnader per person, konto och period", "FTE-rapport: Headcount, heltidsmotsvarigheter och fördelning KT/KM/TM per kostnadsställe", "Speglar data från Inmatning – Personal och Personalparametrar"], "pitfalls": ["Om personaldata saknas i rapporten – kontrollera att Personal-modulen är korrekt ifylld", "FTE-rapporten kräver att sysselsättningsgrad är ifylld per person"]}, "r-pro": {"summary": "Processöversikt som visar var du befinner dig i budgetarbetet och status per kostnadsställe/projekt.", "keyPoints": ["Visar en checklista för hela budgetprocessens flöde (uppifrån och ner)", "Status markeras automatiskt med (x) vid varje Load Data", "Översikt per kostnadsställe och projekt visar Klar-markeringar", "Manuell kontroll av register kan markeras separat"], "pitfalls": ["Hjälptexten anpassas baserat på var i processen du befinner dig – läs den!"]}, "x-utf": {"summary": "Läs in verkligt utfall från affärssystemet och koppla det till en prognosversion.", "keyPoints": ["Utfallsdata hämtas från vERP_Huvudbok i affärssystemet", "Utfallet kopplas till perioder styrt av 'Inmatning fr.o.m.' i versionsregistret", "Kan köras flera gånger – t.ex. när sista utfallsperioden stängs", "Helårsprognosen räknar av insparade utfall innan resterande belopp fördelas"], "pitfalls": ["Fungerar bara för prognosversioner (Typ P), inte budgetversioner", "Kontrollera att 'Inmatning fr.o.m.' är korrekt satt i versionsregistret"]}, "x-kop": {"summary": "Kopiera data från en version till en annan – vanligtvis när du skapar en ny version baserad på en befintlig.", "keyPoints": ["Tre typer att kopiera: Register (alla), Inmatning Konto/Drivare, och Inmatning Personal", "Bara perioder som finns i BÅDA versionerna kopieras", "Utfallsperioder ingår INTE i kopieringen", "Datarensning måste göras först om mottagande version redan har data"], "pitfalls": ["OBS! Datarensning raderar ALL information i mottagande version – dubbelkolla innan!", "Kopiering kräver bekräftelse via dialogruta – läs meddelandet noga"]}, "a-err": {"summary": "Fellogg som visar eventuella fel som uppstått under bearbetning av en version.", "keyPoints": ["Visar Rad-ID, Bolag, Mall-ID, Datum och Användare för varje fel", "Tom rapport = inga fel har loggats – allt fungerar korrekt", "Bra att kontrollera regelbundet under budgetarbetet"], "pitfalls": ["Felloggen är informativ – den åtgärdar inte felen automatiskt"]}, "a-rad": {"summary": "Radera en hel version eller ett helt bolag i en version. VARNING: Permanent åtgärd som inte kan ångras.", "keyPoints": ["Radera version: Versionen måste först vara helt låst (Dölj version = 1)", "Radera bolag: Välj version + bolag och välj JA i rullistan", "Båda åtgärderna är PERMANENTA – kan bara återställas via fullständig databasåterläsning"], "pitfalls": ["Det finns INGEN ångra-funktion. Kontrollera noggrant innan du bekräftar", "Versionen måste vara låst innan radering – annars går det inte"]}, "a-drl": {"summary": "Drill Down låter dig borra ner i rapportbelopp till transaktions- eller kontonivå.", "keyPoints": ["Markera en cell → klicka Drill Down i Exopen-menyn", "Datasets visar antal Exopen-funktioner som påverkar cellen", "Copy to clipboard / Copy to new sheet exporterar transaktionsrader", "Finns även Drill to Pivot Table för vidare analys", "RS-kolumnen visar beloppet, övriga kolumner varierar per rapport"], "pitfalls": ["Drill Down fungerar bara i rapporter med aggregerade värden", "Flera datasets kan finnas – klicka igenom alla för komplett bild"]}};
+const SUMMARIES = {"b-ver": {"summary": "Här skapar du grunden – dina budget- och prognosversioner samt kontomallar som styr vilka konton som visas vid inmatning.", "keyPoints": ["Version Typ B = Budget (allt budgeterat), Typ P = Prognos (mix utfall + prognos)", "Räkenskapsår anges i format yyyymm (t.ex. 202201 = jan 2022)", "Upp till 3 jämförelseversioner kan kopplas och visas automatiskt i rapporter", "Dölj version = 1 låser versionen helt – den kan inte ändras, bara raderas"], "pitfalls": ["Du kan INTE radera en version här – det görs via Administration → Radera version", "Kontomallen styr vad som syns vid inmatning – se till att den är korrekt innan du börjar mata in"]}, "b-bol": {"summary": "Konfigurera organisationsstrukturen: vilka bolag, kostnadsställen och valutor som ska finnas i Forecast Pro.", "keyPoints": ["Bolags-ID MÅSTE matcha ID:t i affärssystemet – annars hämtas inget utfall", "Kostnadsställegrupper skapar mellannivåer för aggregerad uppföljning", "Varje kostnadsställe knyts till en kontomall som styr vilka konton som visas", "Budgetansvarig kan anges per kostnadsställe (valfritt fält)"], "pitfalls": ["Fel ID = inget utfall. Dubbelkolla alltid mot affärssystemet", "Bolag raderas INTE i denna mall utan via Administration → Radera bolag"]}, "b-kto": {"summary": "Ställ in kontoplanen: periodiseringsnycklar, kontogrupper, konton och hur de grupperas i kontomallar.", "keyPoints": ["Periodiseringsnycklar styr hur helårsbelopp fördelas per månad (måste summera till 100%)", "Du kan generera periodiseringsnycklar automatiskt baserat på historiskt utfall", "Kontoadministration kopplar ihop konton med kontogrupper och kontomallar", "Grupperade utfallskonton slår ihop flera redovisningskonton till en rad"], "pitfalls": ["Nya konton som sparas i Register – Konto måste manuellt läggas till i kontomallarna via Kontoadministration", "Alla aktiva konton från affärssystemet bör sparas in – annars stämmer inte rapporterna med verkligheten"]}, "b-hel": {"summary": "Här matar du in budgetens totalbelopp per konto och år. Detta är den huvudsakliga inmatningsvyn.", "keyPoints": ["Du matar in totalbelopp – periodfördelningen sker automatiskt via periodiseringsnyckeln", "Poster med [Låst] och [Personal]/[Drivare] genereras automatiskt – ändra dessa i respektive modul", "Utfall och differens visas bredvid inmatningen för enkel jämförelse", "Utfall R12 visar rullande 12 månader fram till budgetperiodens start"], "pitfalls": ["Intäkter = positiva (+), kostnader = negativa (−). Fel tecken ger felaktiga summeringar", "Klar-markering görs via rullista – sammanställs i Processöversikt (3.05)"]}, "b-man": {"summary": "Granska och justera hur helårsbeloppen fördelats per månad. Du kan också mata in belopp direkt på periodnivå.", "keyPoints": ["Visar hur helårsbelopp fördelats enligt periodiseringsnyckeln", "Du kan överskriva enskilda månadsbelopp manuellt", "Vid versioner med flera kalenderår bearbetas ett år i taget", "Kolumnen 'Föreslagen ny helårsbudget' visar vad som sparas om du ändrar"], "pitfalls": ["Manuella ändringar här överskriver periodiseringsnyckeln för berörda rader", "Poster märkta [Låst] kan inte ändras här"]}, "p-par": {"summary": "Konfigurera personalparametrar: tjänstetyper, sociala avgifter, semesteruttag och förmåner. Behövs bara om Personal-modulen ska användas.", "keyPoints": ["Tre tjänstetyper: KT (kollektiv timlön), KM (kollektiv månadslön), TM (tjänsteman månadslön)", "Sociala avgifter och särskild löneskatt pension (SLP) konfigureras här", "Semesteruttag anges som procent per månad", "Förmåner: namn + konto = belopp i budget. Bara namn = enbart sociala avgifter"], "pitfalls": ["Denna mall behöver BARA fyllas i om Personal-modulen ska användas", "Glöm inte att summera semesteruttag till rätt totalprocent"]}, "p-per": {"summary": "Mata in individuella anställda med personuppgifter och löneinformation. Systemet beräknar personalkostnader automatiskt.", "keyPoints": ["Varje person får Personal-ID, namn, födelseår, personaltyp och sysselsättningsgrad", "Lön och förmåner matas in per person – kostnaden beräknas automatiskt inkl. sociala avgifter", "Genererade belopp visas som [Låst] [Personal] i Konto helår (2.01)", "Lönetyp väljs redan i Selections-rutan"], "pitfalls": ["Vill du ändra en personalkostnad? Gör det HÄR, inte i Konto helår där posten är låst", "Personaltypen (KT/KM/TM) måste matcha det som konfigurerades i Personalparametrar"]}, "p-dri": {"summary": "Fördela kostnader med hjälp av drivare. Skapa drivargrupper, definiera procentuell fördelning per konto, och mata in belopp per aktivitet eller produkt.", "keyPoints": ["Två drivartyper: Aktivitet och Produkt", "Fördelning Konto (1.21): Procentuell fördelning av kostnader per konto och drivargrupp", "Fördelning Produkt (1.22): Definiera styckkostnad per produkt och drivargrupp", "Inmatning Aktivitet (2.21): Mata in belopp per aktivitet och period", "Inmatning Produkt (2.22): Mata in antal per produkt och period"], "pitfalls": ["Procentfördelningen per konto måste summera korrekt", "Belopp genererade av drivare visas som [Låst] [Drivare] i Konto helår"]}, "r-kto": {"summary": "Rapporter som speglar inmatningen i Konto helår och månad. Visar budget/prognos med utfall och jämförelseversioner.", "keyPoints": ["Rapport helår = totalbelopp, Rapport månad = uppdelat per period", "Kontouppsättningen styrs av kontomallen kopplad till kostnadsstället", "Upp till 3 jämförelseversioner visas automatiskt", "Utfallskolumnen visar föregående år vid budget, eller budgetår -1 vid prognos"], "pitfalls": ["Intäkter MÅSTE vara positiva (+) och kostnader negativa (−) – annars blir summorna fel", "Drill Down fungerar här – markera en cell och klicka Drill Down i menyn"]}, "r-res": {"summary": "Resultaträkning som jämför verkligt utfall med budget/prognos. Visar perioden, ackumulerat och helår.", "keyPoints": ["Tre sektioner: Perioden (vald slutperiod), Ackumulerat (start → slut), Helår (12 månader)", "Du väljer start- och slutperiod fritt i Selections", "Kontomall kan väljas separat i denna rapport", "Visar avvikelser mellan utfall och budget/prognos"], "pitfalls": ["Kontomallen som väljs i Selections styr kolumnsektionerna – välj rätt mall", "Kontrollera att start- och slutperiod matchar det du vill jämföra"]}, "r-ovs": {"summary": "Översiktsrapporter som visar alla kostnadsställen eller projekt sida vid sida med belopp per konto.", "keyPoints": ["KST-översikt: Alla kostnadsställen som kolumner, kontostruktur som rader", "Projektöversikt: Alla projekt som kolumner, kontostruktur som rader", "Bra för att snabbt jämföra avdelningar eller projekt mot varandra"], "pitfalls": ["Kontomallen som används beror på om du valt ett specifikt KST/projekt eller [Alla]", "Vid [Alla] används kontomallen kopplad till bolaget"]}, "r-per": {"summary": "Personalrapporter som visar detaljerade personalkostnader per person och FTE-översikt per kostnadsställe.", "keyPoints": ["Detaljerad rapport: Visar kostnader per person, konto och period", "FTE-rapport: Headcount, heltidsmotsvarigheter och fördelning KT/KM/TM per kostnadsställe", "Speglar data från Inmatning – Personal och Personalparametrar"], "pitfalls": ["Om personaldata saknas i rapporten – kontrollera att Personal-modulen är korrekt ifylld", "FTE-rapporten kräver att sysselsättningsgrad är ifylld per person"]}, "r-pro": {"summary": "Processöversikt som visar var du befinner dig i budgetarbetet och status per kostnadsställe/projekt.", "keyPoints": ["Visar en checklista för hela budgetprocessens flöde (uppifrån och ner)", "Status markeras automatiskt med (x) vid varje Load Data", "Översikt per kostnadsställe och projekt visar Klar-markeringar", "Manuell kontroll av register kan markeras separat"], "pitfalls": ["Hjälptexten anpassas baserat på var i processen du befinner dig – läs den!"]}, "x-utf": {"summary": "Läs in verkligt utfall från affärssystemet och koppla det till en prognosversion.", "keyPoints": ["Utfallsdata hämtas från vERP_Huvudbok i affärssystemet", "Utfallet kopplas till perioder styrt av 'Inmatning fr.o.m.' i versionsregistret", "Kan köras flera gånger – t.ex. när sista utfallsperioden stängs", "Helårsprognosen räknar av insparade utfall innan resterande belopp fördelas"], "pitfalls": ["Fungerar bara för prognosversioner (Typ P), inte budgetversioner", "Kontrollera att 'Inmatning fr.o.m.' är korrekt satt i versionsregistret"]}, "x-kop": {"summary": "Kopiera data från en version till en annan – vanligtvis när du skapar en ny version baserad på en befintlig.", "keyPoints": ["Tre typer att kopiera: Register (alla), Inmatning Konto/Drivare, och Inmatning Personal", "Bara perioder som finns i BÅDA versionerna kopieras", "Utfallsperioder ingår INTE i kopieringen", "Datarensning måste göras först om mottagande version redan har data"], "pitfalls": ["OBS! Datarensning raderar ALL information i mottagande version – dubbelkolla innan!", "Kopiering kräver bekräftelse via dialogruta – läs meddelandet noga"]}, "a-err": {"summary": "Fellogg som visar eventuella fel som uppstått under bearbetning av en version.", "keyPoints": ["Visar Rad-ID, Bolag, Mall-ID, Datum och Användare för varje fel", "Tom rapport = inga fel har loggats – allt fungerar korrekt", "Bra att kontrollera regelbundet under budgetarbetet"], "pitfalls": ["Felloggen är informativ – den åtgärdar inte felen automatiskt"]}, "a-rad": {"summary": "Radera en hel version eller ett helt bolag i en version. VARNING: Permanent åtgärd som inte kan ångras.", "keyPoints": ["Radera version: Versionen måste först vara helt låst (Dölj version = 1)", "Radera bolag: Välj version + bolag och välj JA i rullistan", "Båda åtgärderna är PERMANENTA – kan bara återställas via fullständig databasåterläsning"], "pitfalls": ["Det finns INGEN ångra-funktion. Kontrollera noggrant innan du bekräftar", "Versionen måste vara låst innan radering – annars går det inte"]}};
 
 let done=JSON.parse(localStorage.getItem("fp8_d")||"[]");
 let qs=JSON.parse(localStorage.getItem("fp8_q")||"{}");
 let cur=null,cp=0,qcat="all",fcat="all";
 
-function go(id,btn){document.querySelectorAll(".page").forEach(p=>p.classList.remove("on"));document.getElementById("p-"+id)?.classList.add("on");document.querySelectorAll("nav button").forEach(b=>b.classList.remove("on"));if(btn)btn.classList.add("on");else{const m={home:0,quiz:1,faq:2,review:3};document.querySelectorAll("nav button")[m[id]]?.classList.add("on");}window.scrollTo(0,0);}
+function go(id,btn){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("on"));
+  const page=document.getElementById("p-"+id);
+  if(page){page.classList.add("on");page.style.animation="none";page.offsetHeight;page.style.animation="";}
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("on"));
+  if(btn)btn.classList.add("on");
+  else{const m={home:0,quiz:1,faq:2,review:3};document.querySelectorAll("nav button")[m[id]]?.classList.add("on");}
+  window.scrollTo({top:0,behavior:'smooth'});
+  // Close mobile sidebar
+  document.querySelector('aside')?.classList.remove('open');
+}
 
 function buildSb(){
   document.getElementById("sb").innerHTML=Object.entries(C).map(([k,c])=>{
@@ -376,24 +469,25 @@ function filterSb(){const q=(document.getElementById("sb-q").value||"").toLowerC
 
 function buildIntro(){
   const s=INTRO.sections;
-  return `<div style="margin-bottom:24px"><div class="sec" style="margin-top:0">Innan du börjar</div>`+
+  return `<div style="margin-bottom:28px"><div class="sec" style="margin-top:0">Innan du börjar</div>`+
   s.map(sec=>{
     if(sec.steps) return `<div class="intro-box"><h3>${sec.heading}</h3><ul class="intro-steps">${sec.steps.map((st,i)=>`<li><span class="step-n">${i+1}</span>${st.replace(/^\d+\.\s*/,'')}</li>`).join('')}</ul></div>`;
     return `<div class="intro-box"><h3>${sec.heading}</h3><p>${sec.text}</p></div>`;
   }).join('')+`</div>`;
 }
+
 function buildHome(){
   document.getElementById("home").innerHTML=buildIntro()+Object.entries(C).map(([k,c])=>{
     const items=IDS.filter(id=>L[id].c===k);
     return`<div class="sec">${c.l}</div><div class="grid">${items.map(id=>{const l=L[id],d=done.includes(id);
-    return`<div class="crd" onclick="openL('${id}')"><div class="crd-top"><div class="crd-dot" style="background:${c.col}"></div><span style="color:${c.col}">${l.ref!=='—'?l.ref+' · ':''}${c.l}</span></div><h3>${l.t}</h3><div class="crd-desc">${l.d}</div><div class="crd-foot">${l.p.length} dokument${d?' · <span class="crd-done">Klar ✓</span>':''}</div></div>`;}).join("")}</div>`;
+    return`<div class="crd" data-cat="${k}" onclick="openL('${id}')"><div class="crd-top"><div class="crd-dot" style="background:${c.col}"></div><span style="color:${c.col}">${l.ref!=='—'?l.ref+' · ':''}${c.l}</span></div><h3>${l.t}</h3><div class="crd-desc">${l.d}</div><div class="crd-foot">${l.p.length} dokument${d?' · <span class="crd-done">Klar ✓</span>':''}</div></div>`;}).join("")}</div>`;
   }).join("");
 }
 
 function openL(id){cur=id;cp=0;renderR();updSb();go("reader");}
 
 async function renderPdf(url,container){
-  container.innerHTML='<div style="padding:40px;color:var(--text3);text-align:center">Laddar PDF…</div>';
+  container.innerHTML='<div style="padding:48px;color:var(--text3);text-align:center;font-size:13px">Laddar PDF…</div>';
   try{
     const pdf=await pdfjsLib.getDocument(url).promise;
     container.innerHTML='';
@@ -404,11 +498,13 @@ async function renderPdf(url,container){
       const canvas=document.createElement('canvas');
       canvas.width=vp.width;canvas.height=vp.height;
       canvas.style.width='100%';canvas.style.maxWidth=vp.width+'px';
+      canvas.style.opacity='0';canvas.style.transition='opacity .3s ease';
       await page.render({canvasContext:canvas.getContext('2d'),viewport:vp}).promise;
       container.appendChild(canvas);
+      requestAnimationFrame(()=>canvas.style.opacity='1');
     }
   }catch(e){
-    container.innerHTML=`<div style="padding:40px;text-align:center;color:var(--red)">Kunde inte ladda PDF.<br><a href="${url}" target="_blank" style="color:var(--blue)">Öppna i ny flik →</a></div>`;
+    container.innerHTML=`<div style="padding:48px;text-align:center;color:var(--red);font-size:13px">Kunde inte ladda PDF.<br><a href="${url}" target="_blank" style="color:var(--accent);margin-top:8px;display:inline-block">Öppna i ny flik →</a></div>`;
   }
 }
 
@@ -425,7 +521,7 @@ function renderR(){
   pb.textContent=pi?'← '+L[pi].t:'←';
   nb.textContent=ni?L[ni].t+' →':'→';
   document.getElementById("lb-title").textContent=l.t;
-  document.getElementById("lb-pos").textContent=`Avsnitt ${idx+1} av ${IDS.length}`;
+  document.getElementById("lb-pos").textContent=`${idx+1} / ${IDS.length}`;
   const pdf=l.p[cp];
   const ref=pref(pdf);
   document.getElementById("ph-name").textContent=(ref?ref+' · ':'')+pn(pdf);
@@ -436,7 +532,6 @@ function renderR(){
   if(cp===l.p.length-1){bn.textContent="✓ Markera som klar";bn.className="btn btn-g";}
   else{bn.textContent="Nästa dokument →";bn.className="btn btn-b";}
   document.getElementById("pdots").innerHTML=l.p.map((p,i)=>`<div class="dt ${i===cp?'dt-on':i<cp?'dt-ok':''}" onclick="goP(${i})" title="${pn(p)}">${i+1}</div>`).join("");
-  // Render summary
   const sm=SUMMARIES[cur];
   let sumHtml='';
   if(sm){
@@ -446,15 +541,15 @@ function renderR(){
         <span class="arrow">▼</span> Visa nyckelkoncept och vanliga misstag
       </div>
       <div class="sum-body">
-        <div class="sum-section"><h4><span class="emoji">🎯</span> Nyckelkoncept</h4><ul class="sum-list">${sm.keyPoints.map(k=>`<li>${k}</li>`).join('')}</ul></div>
-        <div class="sum-section"><h4><span class="emoji">⚠️</span> Vanliga misstag</h4><ul class="sum-list warn">${sm.pitfalls.map(k=>`<li>${k}</li>`).join('')}</ul></div>
+        <div class="sum-section"><h4><span>🎯</span> Nyckelkoncept</h4><ul class="sum-list">${sm.keyPoints.map(k=>`<li>${k}</li>`).join('')}</ul></div>
+        <div class="sum-section"><h4><span>⚠️</span> Vanliga misstag</h4><ul class="sum-list warn">${sm.pitfalls.map(k=>`<li>${k}</li>`).join('')}</ul></div>
       </div>
     </div>`;
   }
   document.getElementById("sum-area").innerHTML=sumHtml;
   renderPdf(pdf,document.getElementById("pdf-area"));
   const db=document.getElementById("done-box");
-  if(done.includes(cur)){db.style.display="flex";const nx=ni?IDS[idx+1]:null;document.getElementById("done-next").innerHTML=nx?` Fortsätt: <a onclick="openL('${nx}')">${L[nx].t} →</a>`:' Alla avsnitt klara! 🎉';}
+  if(done.includes(cur)){db.style.display="flex";const nx=ni?IDS[idx+1]:null;document.getElementById("done-next").innerHTML=nx?` Fortsätt: <a onclick="openL('${nx}')">${L[nx].t} →</a>`:' Alla avsnitt klara!';}
   else db.style.display="none";
 }
 function goP(i){cp=i;renderR();}
@@ -463,7 +558,12 @@ function nextP(){if(cp<L[cur].p.length-1){cp++;renderR();}else markD(cur);}
 function prevL(){const i=IDS.indexOf(cur);if(i>0)openL(IDS[i-1]);}
 function nextL(){const i=IDS.indexOf(cur);if(i<IDS.length-1)openL(IDS[i+1]);}
 function markD(id){if(!done.includes(id))done.push(id);localStorage.setItem("fp8_d",JSON.stringify(done));updP();updSb();buildHome();renderR();}
-function updP(){const d=done.length;document.getElementById("prog").innerHTML=`Klar: <b>${d}</b> / ${IDS.length}`;document.getElementById("s-done").textContent=d;}
+function updP(){
+  const d=done.length;
+  document.getElementById("prog").querySelector('span').innerHTML=`Klar: <b>${d}</b> / ${IDS.length}`;
+  document.getElementById("prog-fill").style.width=`${(d/IDS.length)*100}%`;
+  document.getElementById("s-done").textContent=d;
+}
 
 function buildQ(){
   const cats=["all",...new Set(QZ.map(q=>q.c))];
